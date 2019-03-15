@@ -1,12 +1,11 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/joho/godotenv"
 	"log"
-	"os"
 	"redisCatcher/db"
+	models2 "redisCatcher/models"
 )
 
 func main() {
@@ -14,177 +13,94 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	database.RedisInit()
-	var check_time_data []string
-	var break_data []string
+	database.ClickhouseInit()
+	rewriteData()
+}
 
-	for _, client := range database.ListRedisConnect {
-		if client.Connect() == nil {
-			continue
-		}
-		check_time_data, err = client.Connect().LRange("checkTime",0,100000000000).Result()
-		if err!= nil{
-			fmt.Println(err.Error())
-		}
-		break_data, err = client.Connect().LRange("checkTime",0,100000000000).Result()
-		if err!= nil{
+func rewriteData(){
+	query := `
+		SELECT
+				vcode,
+				click_logs.create_at as create_at,
+				create_date,
+				url,
+				method, 
+				params, 
+				status_confirmed,
+				status_hold,
+				status_declined,
+				status_other,
+				order_id,
+				amount,
+				result_message
+		FROM tracker_db.leads
+		ALL LEFT JOIN tracker_db.click_logs USING vcode
+		WHERE toDate(click_logs.create_at) <> toDate(leads.create_date) AND click_logs.create_at != 0`
+
+	clickhouse := database.SqlxConnect()
+	var collected_data []models2.PostBack
+	if err := clickhouse.Select(&collected_data, query); err != nil {
+		fmt.Println(err)
+	}
+	clickhouse.Close()
+
+
+
+	update_query := fmt.Sprintf(`
+				INSERT INTO tracker_db.leads
+					(vcode,
+					create_at,
+					create_date,
+					url,
+					method, 
+					params, 
+					status_confirmed,
+					status_hold,
+					status_declined,
+					status_other,
+					order_id,
+					amount,
+					profit,
+					result_message,
+					version)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+	clickhouse = database.SqlxConnect()
+	tx, err := clickhouse.Begin()
+	ErrorCheck(err)
+
+	stmt, err := tx.Prepare(update_query)
+	ErrorCheck(err)
+
+	for _, item := range collected_data {
+		if _, err := stmt.Exec(
+			item.VCode,
+			item.CreateAt,
+			item.CreateDate,
+			item.Url,
+			item.Method,
+			item.Params,
+			item.StatusConfirmed,
+			item.StatusHold,
+			item.StatusDeclined,
+			item.StatusOther,
+			item.OrderID,
+			item.Amount,
+			item.Profit,
+			item.ResultMessage,
+			1,
+		); err != nil {
 			fmt.Println(err.Error())
 		}
 	}
-
-	if len(break_data) > 0{
-		fmt.Println("Checktime collected")
-		//--------------------------------Запись данных в файл--------------------------
-		f, err := os.Create("dump.txt")
-		if err != nil {
-			fmt.Println("Unable to create file:", err)
-		}
-		defer f.Close()
-
-		data, err := json.Marshal(break_data)
-		if err != nil{
-			fmt.Println(err.Error())
-		}
-		fmt.Println("Записываем данные в файл")
-		f.Write(data)
+	if err := tx.Commit(); err != nil {
+		fmt.Println(err.Error())
 	}
+	stmt.Close()
+	clickhouse.Close()
+}
 
-	if len(check_time_data) > 0{
-		fmt.Println("Checktime collected")
-		//--------------------------------Запись данных в файл--------------------------
-		f, err := os.Create("dump.txt")
-		if err != nil {
-			fmt.Println("Unable to create file:", err)
-		}
-		defer f.Close()
-
-		data, err := json.Marshal(check_time_data)
-		if err != nil{
-			fmt.Println(err.Error())
-		}
-		fmt.Println("Записываем данные в файл")
-		f.Write(data)
+func ErrorCheck(err error) {
+	if err != nil {
+		fmt.Println(err.Error())
 	}
-
-	//checktime_array := []models.Breaking{}
-	//total_array := []models.Breaking{}
-	//breaks_array := []models.Breaking{}
-	//for _, client := range database.ListRedisConnect {
-	//	if client.Connect() == nil {
-	//		continue
-	//	}
-	//	//--------------------------------Собираем чектайм--------------------------
-	//	for {
-	//		check_time_data := client.GetQueueCollections("checkTime")
-	//		if check_time_data == "" {
-	//			break
-	//		}
-	//		breaks := models.Breaking{}
-	//		err := json.Unmarshal([]byte(check_time_data), &breaks)
-	//		if err != nil {
-	//			log.Println(err.Error())
-	//		}
-	//		total_array = append(total_array, breaks)
-	//		checktime_array = append(checktime_array, breaks)
-	//		client.Connect().RPush("checkTime", breaks)
-	//	}
-	//
-	//	fmt.Println("Checktime собран", checktime_array)
-	//	//-----------------------------------Записали чектаймы----------------------
-	//	if len(checktime_array) > 0{
-	//		f, err := os.Create("checktime_dump.txt")
-	//		if err != nil {
-	//			fmt.Println("Unable to create file:", err)
-	//		}
-	//		var d []interface{}
-	//
-	//		for _, v := range checktime_array {
-	//			d = append(d, v)
-	//		}
-	//		data, err := json.Marshal(d)
-	//		if err != nil{
-	//			fmt.Println(err.Error())
-	//		}
-	//		fmt.Println("Записываем checktime в файл")
-	//		f.Write(data)
-	//		f.Close()
-	//	}
-	//
-	//	//--------------------------------Собираем пробивы--------------------------
-	//	for{
-	//		queue_breaking := client.GetQueueCollections("queue_breaking")
-	//		if queue_breaking == "" {
-	//			break
-	//		}
-	//		breaks := models.Breaking{}
-	//		err := json.Unmarshal([]byte(queue_breaking), &breaks)
-	//		if err != nil {
-	//			log.Println(err.Error())
-	//		}
-	//		total_array = append(total_array, breaks)
-	//		breaks_array = append(breaks_array, breaks)
-	//		client.Connect().RPush("queue_breaking", breaks)
-	//	}
-	//}
-	//if len(breaks_array) > 0{
-	//	fmt.Println("Data collected")
-	//	//--------------------------------Запись данных в файл--------------------------
-	//	f, err := os.Create("dump.txt")
-	//	if err != nil {
-	//		fmt.Println("Unable to create file:", err)
-	//	}
-	//	var d []interface{}
-	//	defer f.Close()
-	//
-	//	for _, v := range breaks_array {
-	//		d = append(d, v)
-	//	}
-	//	data, err := json.Marshal(d)
-	//	if err != nil{
-	//		fmt.Println(err.Error())
-	//	}
-	//	fmt.Println("Записываем данные в файл")
-	//	f.Write(data)
-	//}
-	//if len(breaks_array) > 0{
-	//	fmt.Println("Breaks collected")
-	//	//--------------------------------Запись данных в файл--------------------------
-	//	f, err := os.Create("breacks_dump.txt")
-	//	if err != nil {
-	//		fmt.Println("Unable to create file:", err)
-	//	}
-	//	var d []interface{}
-	//	defer f.Close()
-	//
-	//	for _, v := range breaks_array {
-	//		d = append(d, v)
-	//	}
-	//	data, err := json.Marshal(d)
-	//	if err != nil{
-	//		fmt.Println(err.Error())
-	//	}
-	//	fmt.Println("Записываем данные в файл")
-	//	f.Write(data)
-	//}
-	//
-	//if len(total_array) > 0{
-	//	fmt.Println("Total collected")
-	//	//--------------------------------Запись данных в файл--------------------------
-	//	f, err := os.Create("dump.txt")
-	//	if err != nil {
-	//		fmt.Println("Unable to create file:", err)
-	//	}
-	//	var d []interface{}
-	//	defer f.Close()
-	//
-	//	for _, v := range breaks_array {
-	//		d = append(d, v)
-	//	}
-	//	data, err := json.Marshal(d)
-	//	if err != nil{
-	//		fmt.Println(err.Error())
-	//	}
-	//	fmt.Println("Записываем данные в файл")
-	//	f.Write(data)
-	//}
 }
