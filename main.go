@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/joho/godotenv"
 	"log"
-	"redisCatcher/db"
-	models2 "redisCatcher/models"
+	"dataCatcher/db"
+	"dataCatcher/models"
 )
 
 func main() {
@@ -38,7 +38,7 @@ func rewriteData(){
 		WHERE toDate(click_logs.create_at) <> toDate(leads.create_date) AND click_logs.create_at != 0`
 
 	clickhouse := database.SqlxConnect()
-	var collected_data []models2.PostBack
+	var collected_data []models.PostBack
 	if err := clickhouse.Select(&collected_data, query); err != nil {
 		fmt.Println(err)
 	}
