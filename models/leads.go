@@ -20,5 +20,6 @@ type PostBack struct {
 	Amount  			float32			`json:"amount" db:"amount"`
 
 	Profit				float32			`json:"profit" db:"profit"`
+	Version				int8			`json:"version" db:"version"`
 	ResultMessage 		string			`json:"result_message" db:"result_message"`
 }
