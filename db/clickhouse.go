@@ -56,7 +56,7 @@ func SqlxConnect() *sqlx.DB {
 	var connection *sqlx.DB
 	for _,v := range ListClickhouseConnect{
 		if v.sqlxclient == nil{
-			params := fmt.Sprintf(`%s:%s?username=%s&password=%s&database=%s&debug=%s`, v.Host, v.Port, v.Username, v.Password, v.DB, v.Debug)
+			params := fmt.Sprintf(`%s:%s?username=%s&password=%s&database=%s&debug=false`, v.Host, v.Port, v.Username, v.Password, v.DB)
 			var err error
 			v.sqlxclient, err = sqlx.Open("clickhouse", params)
 			if err != nil {
