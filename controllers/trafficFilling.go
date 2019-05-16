@@ -12,9 +12,9 @@ var pbData = make(map[string]*models.PostBack)
 
 
 func FillTraffic() {
-	fillClicks()
+	//fillClicks()
 	//fillBreaks()
-	//fillLeads()
+	fillLeads()
 }
 
 func fillClicks() {
@@ -66,7 +66,7 @@ func fillClicks() {
 	br.create_date
 FROM tracker_db.click_logs
 ALL LEFT JOIN tracker_db.breaks as br FINAL USING vcode
-WHERE toDate(create_at) BETWEEN '2019-04-02' and '2019-05-04'`)
+WHERE toDate(create_at) BETWEEN '2019-04-02' and '2019-05-03'`)
 
 		clickhouse := database.SqlxConnect()
 		var collected_data []models.FullTraffic
@@ -291,7 +291,7 @@ func fillLeads() {
 	index2 := 5000
 	items := 1
 	for items > 0 {
-		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs where toDate(create_at) BETWEEN '2019-03-06' and '2019-03-07' ORDER BY create_at asc`)
+		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) <= toDate('2019-05-14') AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
 		var collected_data []models.PostBack
 		var vcodeArray []string
 		clickhouse := database.SqlxConnect()
@@ -306,7 +306,6 @@ func fillLeads() {
 			vcodeArray = append(vcodeArray, val.VCode)
 		}
 		if len(collected_data) > 0 {
-			time.Sleep(time.Second)
 			//------------------------------------------Получаем клики из таблицы трафика-----------------------------------
 
 			trafficArray := GetTrafficData(database.SqlxConnect(), vcodeArray)

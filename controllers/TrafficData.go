@@ -21,7 +21,7 @@ func GetTrafficData(clickhouse *sqlx.DB, vcodeArray []string) []models.FullTraff
 		vcodeString = "'" + vcodeArray[0] + "'"
 	}
 
-	select_query := fmt.Sprintf(`SELECT * FROM tracker_db.traffic_data FINAL WHERE vcode IN (%s)`, vcodeString)
+	select_query := fmt.Sprintf(`SELECT * FROM tracker_db.traffic_data FINAL PREWHERE vcode IN (%s)`, vcodeString)
 	var collected_data []models.FullTraffic
 	if err := clickhouse.Select(&collected_data, select_query); err != nil {
 		fmt.Println(err)
