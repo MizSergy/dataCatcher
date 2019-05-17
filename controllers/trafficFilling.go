@@ -330,6 +330,7 @@ func fillLeads() {
 					trafficArray[i] = data.TraffMerge(trafficArray[i])
 					if _, ok := reservPbData[trafficArray[i].VCode + "t"]; ok {
 						trafficArray = append(trafficArray, reservPbData[trafficArray[i].VCode + "t"].TraffMerge(trafficArray[i]))
+						oldTraffic = append(oldTraffic, reservPbData[trafficArray[i].VCode + "t"].TraffMerge(trafficArray[i]))
 						delete(reservPbData, trafficArray[i].VCode + "t")
 					}
 					delete(pbData, trafficArray[i].VCode)
