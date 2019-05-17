@@ -48,6 +48,7 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 		val.StatusHold = c.StatusHold
 		val.StatusDeclined = c.StatusDeclined
 		val.StatusOther = c.StatusOther
+		val.StatusPaid = c.StatusPaid
 		val.OrderID = c.OrderID
 		val.Amount = c.Amount
 		val.ResultMessage = c.ResultMessage
