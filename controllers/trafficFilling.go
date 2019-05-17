@@ -8,7 +8,8 @@ import (
 )
 
 var breakData = make(map[string]*models.Breaking)
-var pbData = make(map[string]*models.PostBack)
+var pbData = make(map[string]models.PostBack)
+var reservPbData = make(map[string]models.PostBack)
 
 
 func FillTraffic() {
@@ -288,7 +289,7 @@ func fillBreaks() {
 
 func fillLeads() {
 	index := 0
-	index2 := 5000
+	index2 := 50
 	items := 1
 	for items > 0 {
 		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) <= toDate('2019-05-14') AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
@@ -301,9 +302,21 @@ func fillLeads() {
 		clickhouse.Close()
 		items = len(collected_data)
 		index += index2 + 1
+
 		for _,val := range collected_data {
-			pbData[val.VCode] = &val
-			vcodeArray = append(vcodeArray, val.VCode)
+			if _, ok := pbData[val.VCode]; !ok {
+				pbData[val.VCode] = val
+				vcodeArray = append(vcodeArray, val.VCode)
+				continue
+			} else {
+				if val.CreateAt.Sub(pbData[val.VCode].CreateAt) > 0 {
+					if val.OrderID == pbData[val.VCode].OrderID {
+						pbData[val.VCode] = val
+					} else {
+						reservPbData[val.VCode + "t"] = val
+					}
+				}
+			}
 		}
 		if len(collected_data) > 0 {
 			//------------------------------------------Получаем клики из таблицы трафика-----------------------------------
@@ -314,7 +327,11 @@ func fillLeads() {
 			//------------------------------------------Мерджим данные------------------------------------------------------
 			for i, _ := range trafficArray {
 				if data, ok := pbData[trafficArray[i].VCode]; ok {
-					trafficArray[i] = data.Merge(trafficArray[i])
+					trafficArray[i] = data.TraffMerge(trafficArray[i])
+					if _, ok := reservPbData[trafficArray[i].VCode + "t"]; ok {
+						trafficArray = append(trafficArray, reservPbData[trafficArray[i].VCode + "t"].TraffMerge(trafficArray[i]))
+						delete(reservPbData, trafficArray[i].VCode + "t")
+					}
 					delete(pbData, trafficArray[i].VCode)
 				}
 			}
@@ -328,7 +345,7 @@ func fillLeads() {
 			var newTrafficArray []models.FullTraffic
 			for _, val := range pbData {
 				var newTraffic models.FullTraffic
-				newTraffic = val.Merge(newTraffic)
+				newTraffic = val.TraffMerge(newTraffic)
 				newTrafficArray = append(newTrafficArray, newTraffic)
 				delete(pbData, val.VCode)
 			}

@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type PostBack struct {
 	VCode      string    `json:"vcode" db:"vcode"`
@@ -25,11 +27,11 @@ type PostBack struct {
 	ResultMessage string  `json:"result_message" db:"result_message"`
 }
 
-func (c PostBack) Merge(val FullTraffic) FullTraffic {
+func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	if c.CreateDate.IsZero() {
 		c.CreateDate = time.Now()
 	}
-	if c.CreateDate.Sub(val.CreateDate) >= 0 {
+	if c.CreateDate.Sub(val.CreateAt) >= 0 {
 		val.CreateAt = c.CreateAt
 		val.VCode = c.VCode
 		val.LeadCreate = c.CreateDate
@@ -42,8 +44,10 @@ func (c PostBack) Merge(val FullTraffic) FullTraffic {
 		val.StatusDeclined = c.StatusDeclined
 		val.StatusOther = c.StatusOther
 		val.OrderID = c.OrderID
-		if val.Amount != c.Amount && val.VCode == c.VCode{
-			val.IsClick += 1
+		if val.OrderID != c.OrderID && val.IsClick != 0{
+			val.IsClick = 0
+		} else {
+			val.IsClick = 1
 		}
 		val.Amount = c.Amount
 		val.ResultMessage = c.ResultMessage
