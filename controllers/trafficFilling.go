@@ -13,7 +13,7 @@ var reservPbData = make(map[string]models.PostBack)
 
 
 func FillTraffic() {
-	fillClicks()
+	//fillClicks()
 	//fillBreaks()
 	fillLeads()
 }
@@ -232,7 +232,7 @@ WHERE toDate(create_at) BETWEEN '2019-05-16' and '2019-05-19'`)
 
 func fillLeads() {
 	index := 0
-	index2 := 500
+	index2 := 5000
 	items := 1
 	for items > 0 {
 		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) <= '2019-05-19' AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
@@ -249,25 +249,22 @@ func fillLeads() {
 		for _,val := range collected_data {
 			if _, ok := pbData[val.VCode]; !ok {
 				pbData[val.VCode] = val
-				pbData[val.VCode] = val
 				vcodeArray = append(vcodeArray, val.VCode)
 				continue
 			}
 
-			if val.CreateAt.Sub(pbData[val.VCode].CreateAt) > 0 {
-				if val.OrderID == pbData[val.VCode].OrderID {
+			if val.OrderID == pbData[val.VCode].OrderID {
+				if val.CreateAt.Sub(pbData[val.VCode].CreateAt) > 0{
 					pbData[val.VCode] = val
-					pbData[val.VCode] = val
-				} else {
-					reservPbData[val.VCode+"t"] = val
 				}
+			} else {
+				reservPbData[val.VCode+"t"] = val
 			}
 		}
 		var newTrafficArray []models.FullTraffic
 
-		if len(collected_data) > 0 {
+		if len(vcodeArray) > 0 {
 			//------------------------------------------Получаем клики из таблицы трафика-----------------------------------
-
 			trafficArray := GetTrafficData(database.SqlxConnect(), vcodeArray)
 			if len(trafficArray) >0 {
 				oldTraffic := make([]models.FullTraffic, len(trafficArray))
@@ -297,6 +294,12 @@ func fillLeads() {
 			time.Sleep(time.Second)
 
 			for _, val := range pbData {
+				var newTraffic models.FullTraffic
+				newTraffic = val.TraffMerge(newTraffic)
+				newTrafficArray = append(newTrafficArray, newTraffic)
+			}
+
+			for _, val := range reservPbData {
 				var newTraffic models.FullTraffic
 				newTraffic = val.TraffMerge(newTraffic)
 				newTrafficArray = append(newTrafficArray, newTraffic)
