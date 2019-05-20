@@ -13,9 +13,9 @@ var reservPbData = make(map[string]models.PostBack)
 
 
 func FillTraffic() {
-	fillClicks()
+	//fillClicks()
 	//fillBreaks()
-	//fillLeads()
+	fillLeads()
 }
 
 func fillClicks() {
@@ -292,7 +292,7 @@ func fillLeads() {
 	index2 := 500
 	items := 1
 	for items > 0 {
-		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) <= toDate('2019-05-15') AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
+		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) BETWEEN '2019-05-15' AND '2019-05-19' AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
 		var collected_data []models.PostBack
 		var vcodeArray []string
 		clickhouse := database.SqlxConnect()
