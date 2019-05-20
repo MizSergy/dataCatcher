@@ -21,7 +21,7 @@ func GetTrafficData(clickhouse *sqlx.DB, vcodeArray []string) []models.FullTraff
 		vcodeString = "'" + vcodeArray[0] + "'"
 	}
 
-	select_query := fmt.Sprintf(`SELECT * FROM tracker_db.traffic_data FINAL PREWHERE vcode IN (%s)`, vcodeString)
+	select_query := fmt.Sprintf(`SELECT * FROM tracker_db.traffic_data1 FINAL PREWHERE vcode IN (%s)`, vcodeString)
 	var collected_data []models.FullTraffic
 	if err := clickhouse.Select(&collected_data, select_query); err != nil {
 		fmt.Println(err)
@@ -32,7 +32,7 @@ func GetTrafficData(clickhouse *sqlx.DB, vcodeArray []string) []models.FullTraff
 
 func RewriteTrafficData(oldData []models.FullTraffic, newData []models.FullTraffic){
 	query :=
-		`INSERT INTO tracker_db.traffic_data
+		`INSERT INTO tracker_db.traffic_data1
 			(
  			 vcode,
  			 create_at,
@@ -229,7 +229,7 @@ func RewriteTrafficData(oldData []models.FullTraffic, newData []models.FullTraff
 
 func WriteTrafficData(newData []models.FullTraffic){
 	query :=
-		`INSERT INTO tracker_db.traffic_data
+		`INSERT INTO tracker_db.traffic_data1
 		(	 vcode,
  			 create_at,
 		  	 create_date,

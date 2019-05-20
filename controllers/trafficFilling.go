@@ -13,7 +13,7 @@ var reservPbData = make(map[string]models.PostBack)
 
 
 func FillTraffic() {
-	//fillClicks()
+	fillClicks()
 	//fillBreaks()
 	fillLeads()
 }
@@ -81,7 +81,7 @@ WHERE toDate(create_at) BETWEEN '2019-05-16' and '2019-05-19'`)
 			time.Sleep(time.Second)
 			//------------------------------------------Получаем клики из таблицы трафика-----------------------------------
 			query :=
-				`INSERT INTO tracker_db.traffic_data
+				`INSERT INTO tracker_db.traffic_data1
 			( vcode,
  			 create_at,
 		  	 create_date,
@@ -230,69 +230,12 @@ WHERE toDate(create_at) BETWEEN '2019-05-16' and '2019-05-19'`)
 	fmt.Println("Запись кликов закончена")
 }
 
-func fillBreaks() {
-	index := 0
-	index2 := 5000
-
-	items := 1
-	for items > 0 {
-		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.breaks final where toDate(create_at) BETWEEN '2019-05-16' and '2019-05-19' ORDER BY create_at`)
-		var collected_data []models.Breaking
-		var vcodeArray []string
-		clickhouse := database.SqlxConnect()
-		if err := clickhouse.Select(&collected_data, select_query); err != nil {
-			fmt.Println(err)
-		}
-		clickhouse.Close()
-		items = len(collected_data)
-		index += index2 + 1
-		for _,val := range collected_data {
-			breakData[val.VCode] = &val
-			vcodeArray = append(vcodeArray, val.VCode)
-		}
-		if len(collected_data) > 0 {
-			time.Sleep(time.Second)
-			//------------------------------------------Получаем клики из таблицы трафика-----------------------------------
-			trafficArray := GetTrafficData(database.SqlxConnect(), vcodeArray)
-			oldTraffic := make([]models.FullTraffic, len(trafficArray))
-			copy(oldTraffic, trafficArray)
-			//------------------------------------------Мерджим данные------------------------------------------------------
-			for i, _ := range trafficArray {
-				if data, ok := breakData[trafficArray[i].VCode]; ok {
-					trafficArray[i] = data.Merge(trafficArray[i])
-					delete(breakData, trafficArray[i].VCode)
-				}
-			}
-			if len(oldTraffic) > 0{
-				RewriteTrafficData(oldTraffic, trafficArray)
-			}
-
-			//-------------------------------------------Перегоняем новые(без дублей) данные в массив трафика---------------------------
-			time.Sleep(time.Second)
-
-			var newTrafficArray []models.FullTraffic
-			for _, val := range breakData {
-				var newTraffic models.FullTraffic
-				newTraffic = val.Merge(newTraffic)
-				newTrafficArray = append(newTrafficArray, newTraffic)
-				delete(breakData, val.VCode)
-			}
-			if len(newTrafficArray) > 0{
-				WriteTrafficData(newTrafficArray)
-			}
-		}
-		fmt.Println("Чпоньк")
-	}
-	fmt.Println("пробивы ок")
-
-}
-
 func fillLeads() {
 	index := 0
-	index2 := 500
+	index2 := 8000
 	items := 1
 	for items > 0 {
-		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) BETWEEN '2019-05-15' AND '2019-05-19' AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
+		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) <= '2019-05-19' AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
 		var collected_data []models.PostBack
 		var vcodeArray []string
 		clickhouse := database.SqlxConnect()
