@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6822ba28-0cdc-4cff-88f7-73813a181008" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/controllers/TrafficData.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TrafficData.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/trafficFilling.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/trafficFilling.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/breaks.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/breaks.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/postback.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/postback.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,14 +18,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="env" value="19" />
-          <entry key="go" value="4123" />
+          <entry key="go" value="4262" />
           <entry key="txt" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key=".env file" value="19" />
-          <entry key="Go" value="4114" />
+          <entry key="Go" value="4253" />
           <entry key="PLAIN_TEXT" value="36" />
           <entry key="SQL" value="9" />
         </counts>
@@ -31,20 +33,20 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="env" value="1" />
-          <entry key="go" value="26" />
+          <entry key="go" value="28" />
           <entry key="s" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key=".env file" value="1" />
-          <entry key="Go" value="26" />
+          <entry key="Go" value="28" />
           <entry key="x86 Plan9 Assembly" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.go.postfix.template.usages.trigger">
         <counts>
-          <entry key=".len" value="2" />
+          <entry key=".len" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -73,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/trafficFilling.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="272" column="49" lean-forward="true" selection-start-line="272" selection-start-column="49" selection-end-line="272" selection-end-column="49" />
+            <state relative-caret-position="423">
+              <caret line="261" column="52" lean-forward="true" selection-start-line="261" selection-start-column="52" selection-end-line="261" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -85,8 +87,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/breaks.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1365">
-              <caret line="94" selection-start-line="94" selection-end-line="94" />
+            <state relative-caret-position="900">
+              <caret line="60" column="55" selection-start-line="60" selection-start-column="55" selection-end-line="60" selection-end-column="55" />
               <folding>
                 <element signature="e#16#78#0" expanded="true" />
               </folding>
@@ -94,20 +96,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/TrafficData.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2457">
-              <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/runtime/proc.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2235">
-              <caret line="154" selection-start-line="154" selection-end-line="154" />
+            <state relative-caret-position="210">
+              <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -124,8 +117,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/postback.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+            <state relative-caret-position="185">
+              <caret line="29" column="16" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -133,11 +126,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/trafficData.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
+            <state relative-caret-position="945">
               <caret line="63" column="60" selection-start-line="8" selection-end-line="63" selection-end-column="60" />
               <folding>
                 <element signature="e#16#78#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/stream.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -195,8 +197,8 @@
       <find>SqlxConnect</find>
       <find>breakData</find>
       <find>collected_data</find>
-      <find>pbData</find>
       <find>reservPbData</find>
+      <find>pbData</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -227,7 +229,6 @@
         <option value="$PROJECT_DIR$/db/BlackBan].go" />
         <option value="$PROJECT_DIR$/db/BlackBan.go" />
         <option value="$PROJECT_DIR$/models/blackList.go" />
-        <option value="$PROJECT_DIR$/models/breaks.go" />
         <option value="$PROJECT_DIR$/models/clicks.go" />
         <option value="$PROJECT_DIR$/db/clickhouse.go" />
         <option value="$PROJECT_DIR$/controllers/Banning.go" />
@@ -235,9 +236,10 @@
         <option value="$PROJECT_DIR$/models/trafficData.go" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/models/leads.go" />
+        <option value="$PROJECT_DIR$/controllers/TrafficData.go" />
+        <option value="$PROJECT_DIR$/models/breaks.go" />
         <option value="$PROJECT_DIR$/models/postback.go" />
         <option value="$PROJECT_DIR$/controllers/trafficFilling.go" />
-        <option value="$PROJECT_DIR$/controllers/TrafficData.go" />
       </list>
     </option>
   </component>
@@ -414,11 +416,6 @@
           <option name="timeStamp" value="160" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/controllers/trafficFilling.go</url>
-          <line>281</line>
-          <option name="timeStamp" value="214" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/controllers/TrafficData.go</url>
           <line>93</line>
           <option name="timeStamp" value="220" />
@@ -525,13 +522,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/stream.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/affiliate_programm.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -600,23 +590,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/leads.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" selection-start-line="2" selection-end-line="24" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/breaks.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
-          <caret line="94" selection-start-line="94" selection-end-line="94" />
-          <folding>
-            <element signature="e#16#78#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/go/src/runtime/proc.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2235">
@@ -628,16 +601,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7815">
           <caret line="521" selection-start-line="521" selection-end-line="521" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/trafficData.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="63" column="60" selection-start-line="8" selection-end-line="63" selection-end-column="60" />
-          <folding>
-            <element signature="e#16#78#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -655,24 +618,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/trafficFilling.go">
+    <entry file="file://$PROJECT_DIR$/controllers/TrafficData.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="272" column="49" lean-forward="true" selection-start-line="272" selection-start-column="49" selection-end-line="272" selection-end-column="49" />
+        <state relative-caret-position="210">
+          <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/leads.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="24" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/trafficData.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="945">
+          <caret line="63" column="60" selection-start-line="8" selection-end-line="63" selection-end-column="60" />
+          <folding>
+            <element signature="e#16#78#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/stream.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/breaks.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="60" column="55" selection-start-line="60" selection-start-column="55" selection-end-line="60" selection-end-column="55" />
+          <folding>
+            <element signature="e#16#78#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/postback.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+        <state relative-caret-position="185">
+          <caret line="29" column="16" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/TrafficData.go">
+    <entry file="file://$PROJECT_DIR$/controllers/trafficFilling.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2457">
-          <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
+        <state relative-caret-position="423">
+          <caret line="261" column="52" lean-forward="true" selection-start-line="261" selection-start-column="52" selection-end-line="261" selection-end-column="52" />
         </state>
       </provider>
     </entry>

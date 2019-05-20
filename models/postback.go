@@ -31,28 +31,30 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	if c.CreateDate.IsZero() {
 		c.CreateDate = time.Now()
 	}
-	if c.CreateDate.Sub(val.CreateAt) >= 0 {
-		if val.OrderID != c.OrderID && val.IsClick != 0{
-			val.IsClick = 0
-		} else {
-			val.IsClick = 1
-		}
-		val.CreateAt = c.CreateAt
-		val.VCode = c.VCode
-		val.LeadCreate = c.CreateDate
-		val.CreateDate = c.CreateDate
-		val.Url = c.Url
-		val.Method = c.Method
-		val.Params = c.Params
-		val.StatusConfirmed = c.StatusConfirmed
-		val.StatusHold = c.StatusHold
-		val.StatusDeclined = c.StatusDeclined
-		val.StatusOther = c.StatusOther
-		val.StatusPaid = c.StatusPaid
-		val.OrderID = c.OrderID
-		val.Amount = c.Amount
-		val.ResultMessage = c.ResultMessage
-		val.PredictProfit = c.PredictProfit
+	if c.CreateDate.Sub(val.CreateAt) < 0 {
+		return val
 	}
+
+	val.CreateAt = c.CreateAt
+	val.VCode = c.VCode
+	val.LeadCreate = c.CreateDate
+	val.CreateDate = c.CreateDate
+	val.Url = c.Url
+	val.Method = c.Method
+	val.Params = c.Params
+	val.StatusConfirmed = c.StatusConfirmed
+	val.StatusHold = c.StatusHold
+	val.StatusDeclined = c.StatusDeclined
+	val.StatusOther = c.StatusOther
+	if val.OrderID != c.OrderID && val.IsClick != 0 {
+		val.IsClick = 0
+	} else {
+		val.IsClick = 1
+		val.OrderID = c.OrderID
+	}
+	val.Amount = c.Amount
+	val.ResultMessage = c.ResultMessage
+	val.PredictProfit = c.PredictProfit
+
 	return val
 }

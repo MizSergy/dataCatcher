@@ -232,7 +232,7 @@ WHERE toDate(create_at) BETWEEN '2019-05-16' and '2019-05-19'`)
 
 func fillLeads() {
 	index := 0
-	index2 := 8000
+	index2 := 500
 	items := 1
 	for items > 0 {
 		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) <= '2019-05-19' AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
@@ -249,51 +249,59 @@ func fillLeads() {
 		for _,val := range collected_data {
 			if _, ok := pbData[val.VCode]; !ok {
 				pbData[val.VCode] = val
+				pbData[val.VCode] = val
 				vcodeArray = append(vcodeArray, val.VCode)
 				continue
-			} else {
-				if val.CreateAt.Sub(pbData[val.VCode].CreateAt) > 0 {
-					if val.OrderID == pbData[val.VCode].OrderID {
-						pbData[val.VCode] = val
-					} else {
-						reservPbData[val.VCode + "t"] = val
-					}
+			}
+
+			if val.CreateAt.Sub(pbData[val.VCode].CreateAt) > 0 {
+				if val.OrderID == pbData[val.VCode].OrderID {
+					pbData[val.VCode] = val
+					pbData[val.VCode] = val
+				} else {
+					reservPbData[val.VCode+"t"] = val
 				}
 			}
 		}
+		var newTrafficArray []models.FullTraffic
+
 		if len(collected_data) > 0 {
 			//------------------------------------------Получаем клики из таблицы трафика-----------------------------------
 
 			trafficArray := GetTrafficData(database.SqlxConnect(), vcodeArray)
-			oldTraffic := make([]models.FullTraffic, len(trafficArray))
-			copy(oldTraffic, trafficArray)
-			//------------------------------------------Мерджим данные------------------------------------------------------
-			for i, _ := range trafficArray {
-				if data, ok := pbData[trafficArray[i].VCode]; ok {
-					trafficArray[i] = data.TraffMerge(trafficArray[i])
-					if _, ok := reservPbData[trafficArray[i].VCode + "t"]; ok {
-						trafficArray = append(trafficArray, reservPbData[trafficArray[i].VCode + "t"].TraffMerge(trafficArray[i]))
-						oldTraffic = append(oldTraffic, reservPbData[trafficArray[i].VCode + "t"].TraffMerge(trafficArray[i]))
-						delete(reservPbData, trafficArray[i].VCode + "t")
+			if len(trafficArray) >0 {
+				oldTraffic := make([]models.FullTraffic, len(trafficArray))
+				copy(oldTraffic, trafficArray)
+				//------------------------------------------Мерджим данные------------------------------------------------------
+				for i := range trafficArray {
+					if data, ok := pbData[trafficArray[i].VCode]; ok {
+						if trafficArray[i].OrderID == data.OrderID {
+							trafficArray[i] = data.TraffMerge(trafficArray[i])
+						} else {
+							newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
+						}
+
+						if _, ok := reservPbData[trafficArray[i].VCode+"t"]; ok {
+							newTrafficArray = append(trafficArray, reservPbData[trafficArray[i].VCode+"t"].TraffMerge(trafficArray[i]))
+							delete(reservPbData, trafficArray[i].VCode+"t")
+						}
+						delete(pbData, trafficArray[i].VCode)
 					}
-					delete(pbData, trafficArray[i].VCode)
 				}
-			}
-			if len(oldTraffic) > 0{
-				RewriteTrafficData(oldTraffic, trafficArray)
+				if len(oldTraffic) > 0{
+					RewriteTrafficData(oldTraffic, trafficArray)
+				}
 			}
 
 			//-------------------------------------------Перегоняем новые(без дублей) данные в массив трафика---------------------------
 			time.Sleep(time.Second)
 
-			var newTrafficArray []models.FullTraffic
 			for _, val := range pbData {
 				var newTraffic models.FullTraffic
 				newTraffic = val.TraffMerge(newTraffic)
 				newTrafficArray = append(newTrafficArray, newTraffic)
-				delete(pbData, val.VCode)
 			}
-			if len(newTrafficArray) > 0{
+			if len(newTrafficArray) > 0 {
 				WriteTrafficData(newTrafficArray)
 			}
 		}

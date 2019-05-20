@@ -25,70 +25,42 @@ type Breaking struct {
 }
 
 func (c Breaking) Merge(val FullTraffic) FullTraffic {
-	if c.IsBreaked != 0 {
+	if c.ProcessInterval > 0{
+		val.ProcessInterval = c.ProcessInterval
+	}
+	if c.ScreenWidth != 0{
+		val.ScreenWidth = c.ScreenWidth
+	}
+	if c.ScreenHeight != 0{
+		val.ScreenHeight = c.ScreenHeight
+	}
+	if len(c.Language) != 0 {
+		val.Language = c.Language
+	}
+
+	if c.IsBreaked != 0{
+		val.IsBreaked = c.IsBreaked
 		if c.CreateAt.Sub(val.CreateAt) >= 0 {
-			val.VCode = c.VCode
 			val.CreateAt = c.CreateAt
-			if val.IsBreaked == 0 {
-				val.IsBreaked = c.IsBreaked
-			}
 			if c.StreamId != 0{
 				val.StreamId = c.StreamId
 			}
 			if c.AffiliateID != 0{
 				val.AffiliateID = c.AffiliateID
 			}
-			if c.ProcessInterval > 0 {
-				val.ProcessInterval = c.ProcessInterval
-			}
-			if c.ScreenWidth != 0 {
-				val.ScreenWidth = c.ScreenWidth
-			}
-			if c.ScreenHeight != 0 {
-				val.ScreenHeight = c.ScreenHeight
-			}
-			if c.Language != "" {
-				val.Language = c.Language
-			}
-			if val.ProcessInterval < 14 && val.ProcessInterval != 0{
-				val.IsRefused = 1
-			} else {
-				val.IsRefused = 0
-			}
 		}
 	} else {
-		val.VCode = c.VCode
-		val.CreateAt = c.CreateAt
-		if val.IsBreaked == 0 {
-			val.IsBreaked = c.IsBreaked
-		}
-		if c.ProcessInterval > 0 {
-			val.ProcessInterval = c.ProcessInterval
-		}
-		if c.ScreenWidth != 0 && val.ScreenWidth == 0 {
-			val.ScreenWidth = c.ScreenWidth
-		}
-		if c.ScreenHeight != 0 && val.ScreenHeight == 0 {
-			val.ScreenHeight = c.ScreenHeight
-		}
-		if c.Language != "" && val.Language == "" {
-			val.Language = c.Language
-		}
-		if c.IsRefused != 0 {
-			val.IsRefused = c.IsRefused
-		} else {
-			if val.ProcessInterval < 14 {
-				val.IsRefused = 1
-			} else {
-				val.IsRefused = 0
-			}
-		}
-		if c.StreamId != 0 && val.StreamId == 0 {
+		if c.StreamId != 0{
 			val.StreamId = c.StreamId
 		}
-		if c.AffiliateID != 0 && val.AffiliateID == 0 {
+		if c.AffiliateID != 0{
 			val.AffiliateID = c.AffiliateID
 		}
 	}
+
+	if c.ProcessInterval != 0 && c.ProcessInterval < 14{
+		val.IsRefused = 1
+	}
+
 	return val
 }
