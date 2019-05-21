@@ -31,7 +31,7 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	if c.CreateDate.IsZero() {
 		c.CreateDate = time.Now()
 	}
-	if c.CreateDate.Sub(val.CreateAt) < 0 {
+	if c.CreateDate.Sub(val.CreateAt) < 0 && len(c.Url) > 0{
 		return val
 	}
 
@@ -46,6 +46,10 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	val.StatusHold = c.StatusHold
 	val.StatusDeclined = c.StatusDeclined
 	val.StatusOther = c.StatusOther
+	val.StatusPaid = c.StatusPaid
+	if c.StatusConfirmed == 1{
+		val.Profit = c.Amount
+	}
 	if val.OrderID != c.OrderID && val.IsClick != 0 {
 		val.IsClick = 0
 	} else {
@@ -54,6 +58,11 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	}
 	val.Amount = c.Amount
 	val.ResultMessage = c.ResultMessage
+	if c.PredictProfit == 0 && c.StatusHold == 1{
+		val.PredictProfit = c.Amount
+		return val
+	}
+
 	val.PredictProfit = c.PredictProfit
 
 	return val
