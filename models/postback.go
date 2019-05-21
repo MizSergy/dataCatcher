@@ -31,7 +31,7 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	if c.CreateDate.IsZero() {
 		c.CreateDate = time.Now()
 	}
-	if c.CreateDate.Sub(val.CreateAt) < 0 && len(c.Url) > 0{
+	if c.CreateDate.Sub(val.CreateAt) < 0{
 		return val
 	}
 
