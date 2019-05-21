@@ -30,17 +30,20 @@ type PostBack struct {
 }
 
 func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
+	if c.VCode == "fe3e4274-bd4f-4d2b-8eed-35a290d0438e" {
+		fmt.Println("asd")
+	}
 	if c.CreateDate.IsZero() {
 		c.CreateDate = time.Now()
 	}
-	if c.CreateDate.Sub(val.CreateAt) < 0 && c.OrderID == val.OrderID{
+	if c.CreateDate.Sub(val.CreateAt) < 0 && c.OrderID == val.OrderID {
 		return val
 	}
-	if len(val.OrderID) == 0{
+	if len(val.OrderID) == 0 {
 		val.OrderID = c.OrderID
 	}
 
-	if len(c.OrderID) == 0{
+	if len(c.OrderID) == 0 {
 		c.OrderID = val.OrderID
 	}
 
@@ -56,18 +59,21 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	val.StatusDeclined = c.StatusDeclined
 	val.StatusOther = c.StatusOther
 	val.StatusPaid = c.StatusPaid
-	if c.StatusConfirmed == 1{
+	if c.StatusConfirmed == 1 {
 		val.Profit = c.Amount
 	}
-	if val.OrderID != c.OrderID  && val.IsClick != 0 {
-		val.IsClick = 0
+	if val.OrderID != c.OrderID {
+		if val.IsClick == 1 {
+			val.IsClick = 0
+		} else {
+			val.IsClick = 1
+		}
 	} else {
 		val.IsClick = 1
-		val.OrderID = c.OrderID
 	}
 	val.Amount = c.Amount
 	val.ResultMessage = c.ResultMessage
-	if c.PredictProfit == 0 && c.StatusHold == 1{
+	if c.PredictProfit == 0 && c.StatusHold == 1 {
 		val.PredictProfit = c.Amount
 		return val
 	}

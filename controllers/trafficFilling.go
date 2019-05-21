@@ -271,6 +271,9 @@ func fillLeads() {
 				copy(oldTraffic, trafficArray)
 				//------------------------------------------Мерджим данные------------------------------------------------------
 				for i := range trafficArray {
+					if trafficArray[i].VCode == "fe3e4274-bd4f-4d2b-8eed-35a290d0438e"{
+						fmt.Println("asd")
+					}
 					if data, ok := pbData[trafficArray[i].VCode]; ok {
 						if trafficArray[i].OrderID != data.OrderID && (len(trafficArray[i].OrderID) > 0 && len(data.OrderID) > 0){
 							newTrafficArray = append(trafficArray, data.TraffMerge(trafficArray[i]))
