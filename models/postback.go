@@ -1,5 +1,6 @@
 package models
 
+import "C"
 import (
 	"fmt"
 	"time"
@@ -35,6 +36,13 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	if c.CreateDate.Sub(val.CreateAt) < 0 && c.OrderID == val.OrderID{
 		return val
 	}
+	if len(val.OrderID) == 0{
+		val.OrderID = c.OrderID
+	}
+
+	if len(c.OrderID) == 0{
+		c.OrderID = val.OrderID
+	}
 
 	val.CreateAt = c.CreateAt
 	val.VCode = c.VCode
@@ -51,7 +59,7 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	if c.StatusConfirmed == 1{
 		val.Profit = c.Amount
 	}
-	if val.OrderID != c.OrderID && val.IsClick != 0 {
+	if val.OrderID != c.OrderID  && val.IsClick != 0 {
 		val.IsClick = 0
 	} else {
 		val.IsClick = 1
