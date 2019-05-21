@@ -11,7 +11,6 @@ var breakData = make(map[string]*models.Breaking)
 var pbData = make(map[string]models.PostBack)
 var reservPbData = make(map[string]models.PostBack)
 
-
 func FillTraffic() {
 	//fillClicks()
 	//fillBreaks()
@@ -24,7 +23,7 @@ func fillClicks() {
 	//
 	//items := 1
 	//for items > 0 {
-		select_query := fmt.Sprintf(`SELECT 
+	select_query := fmt.Sprintf(`SELECT 
 	vcode,
 	create_at,
  	source_id,
@@ -70,19 +69,19 @@ FROM tracker_db.click_logs
 ALL LEFT JOIN tracker_db.breaks as br FINAL USING vcode
 PREWHERE toDate(create_at) BETWEEN '2019-03-05' and '2019-03-15'`)
 
-		clickhouse := database.SqlxConnect()
-		var collected_data []models.FullTraffic
-		if err := clickhouse.Select(&collected_data, select_query); err != nil {
-			fmt.Println(err)
-		}
-		clickhouse.Close()
-		fmt.Println("Взяли")
-		//items = len(collected_data)
-		if len(collected_data) > 0 {
-			time.Sleep(time.Second)
-			//------------------------------------------Получаем клики из таблицы трафика-----------------------------------
-			query :=
-				`INSERT INTO tracker_db.traffic_data1
+	clickhouse := database.SqlxConnect()
+	var collected_data []models.FullTraffic
+	if err := clickhouse.Select(&collected_data, select_query); err != nil {
+		fmt.Println(err)
+	}
+	clickhouse.Close()
+	fmt.Println("Взяли")
+	//items = len(collected_data)
+	if len(collected_data) > 0 {
+		time.Sleep(time.Second)
+		//------------------------------------------Получаем клики из таблицы трафика-----------------------------------
+		query :=
+			`INSERT INTO tracker_db.traffic_data1
 			( vcode,
  			 create_at,
 		  	 create_date,
@@ -140,92 +139,92 @@ PREWHERE toDate(create_at) BETWEEN '2019-03-05' and '2019-03-15'`)
  			 version)
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 
-			clickhouse_conn := database.SqlxConnect()
+		clickhouse_conn := database.SqlxConnect()
 
-			tx, err := clickhouse_conn.Begin()
-			ErrorCheck(err)
+		tx, err := clickhouse_conn.Begin()
+		ErrorCheck(err)
 
-			stmt, err := tx.Prepare(query)
-			ErrorCheck(err)
+		stmt, err := tx.Prepare(query)
+		ErrorCheck(err)
 
-			for _, item := range collected_data {
-				if item.CreateAt.IsZero() {
-					item.CreateAt = time.Now()
-				}
-				if item.CreateDate.IsZero() {
-					item.CreateDate = time.Now()
-				}
-				if item.LeadCreate.IsZero() {
-					item.LeadCreate = time.Now()
-				}
-				if _, err := stmt.Exec(
-					item.VCode,
-					item.CreateAt,
-					item.CreateDate,
-					item.LeadCreate,
-					1,
-					item.SourceID,
-					item.Campaign,
-					item.StreamId,
-					item.AffiliateID,
-					item.PrelandID,
-					item.IsBreaked,
-					item.IsRefused,
-					item.IsUnique,
-					item.IsTest,
-					item.ProcessInterval,
-					item.ScreenWidth,
-					item.ScreenHeight,
-					item.Language,
-					item.ClickPrice,
-					item.Browser,
-					item.BrowserV,
-					item.Os,
-					item.OsV,
-					item.Country,
-					item.CountryCode,
-					item.Region,
-					item.City,
-					item.Ip,
-					item.Device,
-					item.IsMobil,
-					item.Ad,
-					item.Site,
-					item.Sid1,
-					item.Sid2,
-					item.Sid3,
-					item.Sid4,
-					item.Sid5,
-					item.Sid6,
-					item.Sid7,
-					item.PrelandUrl,
-					item.Session,
-					item.Url,
-					item.Method,
-					item.Params,
-					item.StatusConfirmed,
-					item.StatusHold,
-					item.StatusDeclined,
-					item.StatusOther,
-					item.StatusPaid,
-					item.OrderID,
-					item.Amount,
-					item.ResultMessage,
-					item.PredictProfit,
-					item.Profit,
-					1,
-				); err != nil {
-					fmt.Println(err.Error())
-				}
+		for _, item := range collected_data {
+			if item.CreateAt.IsZero() {
+				item.CreateAt = time.Now()
 			}
-			if err := tx.Commit(); err != nil {
+			if item.CreateDate.IsZero() {
+				item.CreateDate = time.Now()
+			}
+			if item.LeadCreate.IsZero() {
+				item.LeadCreate = time.Now()
+			}
+			if _, err := stmt.Exec(
+				item.VCode,
+				item.CreateAt,
+				item.CreateDate,
+				item.LeadCreate,
+				1,
+				item.SourceID,
+				item.Campaign,
+				item.StreamId,
+				item.AffiliateID,
+				item.PrelandID,
+				item.IsBreaked,
+				item.IsRefused,
+				item.IsUnique,
+				item.IsTest,
+				item.ProcessInterval,
+				item.ScreenWidth,
+				item.ScreenHeight,
+				item.Language,
+				item.ClickPrice,
+				item.Browser,
+				item.BrowserV,
+				item.Os,
+				item.OsV,
+				item.Country,
+				item.CountryCode,
+				item.Region,
+				item.City,
+				item.Ip,
+				item.Device,
+				item.IsMobil,
+				item.Ad,
+				item.Site,
+				item.Sid1,
+				item.Sid2,
+				item.Sid3,
+				item.Sid4,
+				item.Sid5,
+				item.Sid6,
+				item.Sid7,
+				item.PrelandUrl,
+				item.Session,
+				item.Url,
+				item.Method,
+				item.Params,
+				item.StatusConfirmed,
+				item.StatusHold,
+				item.StatusDeclined,
+				item.StatusOther,
+				item.StatusPaid,
+				item.OrderID,
+				item.Amount,
+				item.ResultMessage,
+				item.PredictProfit,
+				item.Profit,
+				1,
+			); err != nil {
 				fmt.Println(err.Error())
 			}
-
-			stmt.Close()
-			clickhouse_conn.Close()
 		}
-		//fmt.Println("Чпоньк")
+		if err := tx.Commit(); err != nil {
+			fmt.Println(err.Error())
+		}
+
+		stmt.Close()
+		clickhouse_conn.Close()
+	}
+	//fmt.Println("Чпоньк")
 	//	index += index2 + 1
 	//}
 	fmt.Println("Запись кликов закончена")
@@ -247,7 +246,7 @@ func fillLeads() {
 		items = len(collected_data)
 		index += index2 + 1
 
-		for _,val := range collected_data {
+		for _, val := range collected_data {
 			if _, ok := pbData[val.VCode]; !ok {
 				pbData[val.VCode] = val
 				vcodeArray = append(vcodeArray, val.VCode)
@@ -255,7 +254,7 @@ func fillLeads() {
 			}
 
 			if val.OrderID == pbData[val.VCode].OrderID {
-				if val.CreateAt.Sub(pbData[val.VCode].CreateAt) > 0{
+				if val.CreateAt.Sub(pbData[val.VCode].CreateAt) > 0 {
 					pbData[val.VCode] = val
 				}
 			} else {
@@ -267,16 +266,16 @@ func fillLeads() {
 		if len(vcodeArray) > 0 {
 			//------------------------------------------Получаем клики из таблицы трафика-----------------------------------
 			trafficArray := GetTrafficData(database.SqlxConnect(), vcodeArray)
-			if len(trafficArray) >0 {
+			if len(trafficArray) > 0 {
 				oldTraffic := make([]models.FullTraffic, len(trafficArray))
 				copy(oldTraffic, trafficArray)
 				//------------------------------------------Мерджим данные------------------------------------------------------
 				for i := range trafficArray {
 					if data, ok := pbData[trafficArray[i].VCode]; ok {
-						if trafficArray[i].OrderID == data.OrderID && len(data.OrderID) > 0{
+						if (len(data.OrderID) > 0 && len(trafficArray[i].OrderID) == 0) || trafficArray[i].OrderID == data.OrderID {
 							trafficArray[i] = data.TraffMerge(trafficArray[i])
-						} else {
-							newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
+						} else if trafficArray[i].OrderID != data.OrderID {
+							newTrafficArray = append(trafficArray, data.TraffMerge(trafficArray[i]))
 						}
 
 						if _, ok := reservPbData[trafficArray[i].VCode+"t"]; ok {
@@ -286,7 +285,7 @@ func fillLeads() {
 						delete(pbData, trafficArray[i].VCode)
 					}
 				}
-				if len(oldTraffic) > 0{
+				if len(oldTraffic) > 0 {
 					RewriteTrafficData(oldTraffic, trafficArray)
 				}
 			}
@@ -298,12 +297,14 @@ func fillLeads() {
 				var newTraffic models.FullTraffic
 				newTraffic = val.TraffMerge(newTraffic)
 				newTrafficArray = append(newTrafficArray, newTraffic)
+				delete(pbData, val.VCode)
 			}
 
 			for _, val := range reservPbData {
 				var newTraffic models.FullTraffic
 				newTraffic = val.TraffMerge(newTraffic)
 				newTrafficArray = append(newTrafficArray, newTraffic)
+				delete(pbData, val.VCode+"t")
 			}
 			if len(newTrafficArray) > 0 {
 				WriteTrafficData(newTrafficArray)

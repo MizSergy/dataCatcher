@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"time"
 )
 
@@ -31,7 +32,7 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	if c.CreateDate.IsZero() {
 		c.CreateDate = time.Now()
 	}
-	if c.CreateDate.Sub(val.CreateAt) < 0{
+	if c.CreateDate.Sub(val.CreateAt) < 0 && c.OrderID == val.OrderID{
 		return val
 	}
 
@@ -62,8 +63,9 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 		val.PredictProfit = c.Amount
 		return val
 	}
-
 	val.PredictProfit = c.PredictProfit
-
+	if len(val.Url) == 0 {
+		fmt.Println("ceeerf")
+	}
 	return val
 }
