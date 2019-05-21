@@ -273,7 +273,7 @@ func fillLeads() {
 				//------------------------------------------Мерджим данные------------------------------------------------------
 				for i := range trafficArray {
 					if data, ok := pbData[trafficArray[i].VCode]; ok {
-						if trafficArray[i].OrderID == data.OrderID {
+						if trafficArray[i].OrderID == data.OrderID && len(data.OrderID) > 0{
 							trafficArray[i] = data.TraffMerge(trafficArray[i])
 						} else {
 							newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
