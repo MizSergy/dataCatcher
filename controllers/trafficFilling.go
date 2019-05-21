@@ -275,7 +275,7 @@ func fillLeads() {
 						fmt.Println("asd")
 					}
 					if data, ok := pbData[trafficArray[i].VCode]; ok {
-						if trafficArray[i].OrderID != data.OrderID && (len(trafficArray[i].OrderID) > 0 && len(data.OrderID) > 0){
+						if trafficArray[i].OrderID != data.OrderID && ((len(trafficArray[i].OrderID) > 0 && len(data.OrderID) > 0) || (len(trafficArray[i].OrderID) > 0 && len(data.OrderID) == 0)){
 							newTrafficArray = append(trafficArray, data.TraffMerge(trafficArray[i]))
 						} else {
 							trafficArray[i] = data.TraffMerge(trafficArray[i])
