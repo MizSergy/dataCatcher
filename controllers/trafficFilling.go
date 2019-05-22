@@ -256,12 +256,17 @@ func fillLeads() {
 			item := collected_data[i]
 
 			if item.OrderID != pbData[item.VCode].OrderID || (len(item.OrderID) == 0 && len(pbData[item.VCode].OrderID) != 0) {
-				if item.CreateAt.Sub(pbData[item.VCode].CreateAt) < 0 {
+				_, ok := reservPbData[collected_data[i].VCode+"t"]
+				if !ok {
+					reservPbData[collected_data[i].VCode+"t"] = collected_data[i]
+					continue
+				}
+				if item.CreateAt.Sub(reservPbData[collected_data[i].VCode+"t"].CreateAt) < 0 {
 					continue
 				}
 				reservPbData[item.VCode+"t"] = collected_data[i]
 			} else {
-				if item.CreateAt.Sub(reservPbData[item.VCode+"t"].CreateAt) < 0 {
+				if item.CreateAt.Sub(pbData[item.VCode].CreateAt) < 0 {
 					continue
 				}
 				pbData[item.VCode] = collected_data[i]
@@ -284,8 +289,6 @@ func fillLeads() {
 						newTrafficArray = append(newTrafficArray, trafficArray[i])
 						continue
 					}
-					fmt.Println(data.CreateAt)
-					fmt.Println(trafficArray[i].CreateAt)
 					if data.CreateAt.Sub(trafficArray[i].CreateAt) >= 0 {
 						if trafficArray[i].OrderID != data.OrderID {
 							if len(trafficArray[i].OrderID) == 0 && len(pbData[data.VCode].OrderID) != 0{
