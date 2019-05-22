@@ -257,11 +257,11 @@ func fillLeads() {
 
 			if item.OrderID != pbData[item.VCode].OrderID || (len(item.OrderID) == 0 && len(pbData[item.VCode].OrderID) != 0) {
 				if item.CreateAt.Sub(pbData[item.VCode].CreateAt) > 0 {
-					pbData[item.VCode] = collected_data[i]
+					reservPbData[item.VCode+"t"] = collected_data[i]
 				}
 			} else {
 				if item.CreateAt.Sub(reservPbData[item.VCode+"t"].CreateAt) > 0 {
-					reservPbData[item.VCode+"t"] = collected_data[i]
+					pbData[item.VCode] = collected_data[i]
 				}
 			}
 		}

@@ -2,7 +2,6 @@ package models
 
 import "C"
 import (
-	"fmt"
 	"time"
 )
 
@@ -72,8 +71,5 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 		return val
 	}
 	val.PredictProfit = c.PredictProfit
-	if len(val.Url) == 0 {
-		fmt.Println("ceeerf")
-	}
 	return val
 }
