@@ -235,7 +235,7 @@ func fillLeads() {
 	index2 := 10000
 	items := 1
 	for items > 0 {
-		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) <= '2019-05-20' AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
+		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) BETWEEN '2019-03-03' AND '2019-04-01' AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
 		var collected_data []models.PostBack
 		var vcodeArray []string
 		clickhouse := database.SqlxConnect()
