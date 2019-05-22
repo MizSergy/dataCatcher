@@ -19,6 +19,7 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 	database.ClickhouseInit()
+	//controllers.Ban()
 	controllers.FillTraffic()
 	//database.MongoConnect()
 	//DataMerger()
