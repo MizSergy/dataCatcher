@@ -30,9 +30,6 @@ type PostBack struct {
 }
 
 func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
-	if c.VCode == "fe3e4274-bd4f-4d2b-8eed-35a290d0438e" {
-		fmt.Println("asd")
-	}
 	if c.CreateDate.IsZero() {
 		c.CreateDate = time.Now()
 	}

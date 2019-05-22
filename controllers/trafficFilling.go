@@ -253,27 +253,26 @@ func fillLeads() {
 				continue
 			}
 
-			if val.OrderID == pbData[val.VCode].OrderID {
+			if val.OrderID == pbData[val.VCode].OrderID || len(val.OrderID) != 0{
 				if val.CreateAt.Sub(pbData[val.VCode].CreateAt) > 0 {
 					pbData[val.VCode] = val
 				}
 			} else {
-				reservPbData[val.VCode+"t"] = val
+				if val.CreateAt.Sub(reservPbData[val.VCode+"t"].CreateAt) > 0 {
+					reservPbData[val.VCode+"t"] = val
+				}
 			}
 		}
 		var newTrafficArray []models.FullTraffic
 
 		if len(vcodeArray) > 0 {
-			//------------------------------------------Получаем клики из таблицы трафика-----------------------------------
+			//------------------------------------------Получаем клики из таблицы трафика-------------------------------
 			trafficArray := GetTrafficData(database.SqlxConnect(), vcodeArray)
 			if len(trafficArray) > 0 {
 				oldTraffic := make([]models.FullTraffic, len(trafficArray))
 				copy(oldTraffic, trafficArray)
-				//------------------------------------------Мерджим данные------------------------------------------------------
+			//------------------------------------------Мерджим данные--------------------------------------------------
 				for i := range trafficArray {
-					if trafficArray[i].VCode == "fe3e4274-bd4f-4d2b-8eed-35a290d0438e"{
-						fmt.Println("asd")
-					}
 					if data, ok := pbData[trafficArray[i].VCode]; ok {
 						if trafficArray[i].OrderID != data.OrderID && ((len(trafficArray[i].OrderID) > 0 && len(data.OrderID) > 0) || (len(trafficArray[i].OrderID) > 0 && len(data.OrderID) == 0)){
 							newTrafficArray = append(trafficArray, data.TraffMerge(trafficArray[i]))
