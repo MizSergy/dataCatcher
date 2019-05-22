@@ -13,14 +13,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="env" value="19" />
-          <entry key="go" value="6961" />
+          <entry key="go" value="6970" />
           <entry key="txt" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key=".env file" value="19" />
-          <entry key="Go" value="6952" />
+          <entry key="Go" value="6961" />
           <entry key="PLAIN_TEXT" value="36" />
           <entry key="SQL" value="9" />
         </counts>
@@ -73,8 +73,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/postback.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="41" selection-start-line="41" selection-end-line="41" />
+            <state relative-caret-position="348">
+              <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
               <folding>
                 <element signature="e#16#52#0" expanded="true" />
               </folding>
@@ -685,8 +685,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/postback.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        <state relative-caret-position="348">
+          <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
           <folding>
             <element signature="e#16#52#0" expanded="true" />
           </folding>
