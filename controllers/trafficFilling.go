@@ -331,6 +331,7 @@ func fillLeads() {
 			}
 
 			for _, val := range reservPbData {
+				fmt.Println("Короче не вкоде в резерве ", val.VCode)
 				var newTraffic models.FullTraffic
 				newTraffic = val.TraffMerge(newTraffic)
 				newTrafficArray = append(newTrafficArray, newTraffic)
