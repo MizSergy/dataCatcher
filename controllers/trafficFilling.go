@@ -284,8 +284,12 @@ func fillLeads() {
 					}
 					if data.CreateAt.Sub(trafficArray[i].CreateAt) > 0 {
 						if trafficArray[i].OrderID != data.OrderID {
-							if len(trafficArray[i].OrderID) == 0 && len(pbData[data.VCode].OrderID) != 0 {
-								trafficArray[i] = data.TraffMerge(trafficArray[i])
+							if len(trafficArray[i].OrderID) == 0 && len(pbData[data.VCode].OrderID) != 0{
+								if len(data.OrderID) == 0{
+									newTrafficArray = append(trafficArray, data.TraffMerge(trafficArray[i]))
+								} else{
+									trafficArray[i] = data.TraffMerge(trafficArray[i])
+								}
 							} else {
 								newTrafficArray = append(trafficArray, data.TraffMerge(trafficArray[i]))
 							}
