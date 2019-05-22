@@ -37,6 +37,7 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	}
 
 	if val.OrderID != c.OrderID && val.IsClick == 1 {
+		val.IsClick = 0
 	} else {
 		val.IsClick = 1
 	}
