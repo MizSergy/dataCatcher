@@ -260,12 +260,10 @@ func fillLeads() {
 			}
 
 			if item.OrderID != pbData[item.VCode].OrderID && len(pbData[item.VCode].OrderID) != 0 {
-				_, ok := reservPbData[collected_data[i].VCode+"t"]
-				if !ok {
-					reservPbData[collected_data[i].VCode+"t"] = collected_data[i]
+				reservPbData[collected_data[i].VCode+"t"] = collected_data[i]
 					continue
-				}
 			}
+
 			pbData[item.VCode] = collected_data[i]
 
 			//if item.OrderID != pbData[item.VCode].OrderID || (len(item.OrderID) == 0 && len(pbData[item.VCode].OrderID) != 0) {
