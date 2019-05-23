@@ -303,8 +303,10 @@ func fillLeads() {
 						delete(pbData, trafficArray[i].VCode)
 						continue
 					}
+
 					if data.CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
 						fmt.Println("Старый: ", trafficArray[i])
+						delete(pbData, trafficArray[i].VCode)
 						continue
 					}
 
