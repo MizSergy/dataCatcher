@@ -304,28 +304,34 @@ func fillLeads() {
 						continue
 					}
 					if data.CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
+						fmt.Println("Старый: ", trafficArray[i])
 						continue
 					}
 
 					if trafficArray[i].OrderID != data.OrderID && len(trafficArray[i].OrderID) != 0 {
 						newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
+					} else {
+						trafficArray[i] = data.TraffMerge(trafficArray[i])
 					}
-					trafficArray[i] = data.TraffMerge(trafficArray[i])
 
 					_, ok = reservPbData[trafficArray[i].VCode+"t"]
 					if !ok {
+						delete(pbData, trafficArray[i].VCode)
 						continue
 					}
 
 					if reservPbData[trafficArray[i].VCode+"t"].CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
+						fmt.Println("Старый резверв: ", trafficArray[i])
 						continue
 					}
-					reservData := reservPbData[trafficArray[i].VCode+"t"]
 
+					reservData := reservPbData[trafficArray[i].VCode+"t"]
 					newTrafficArray = append(newTrafficArray, reservData.TraffMerge(trafficArray[i]))
 
 					RewriteTrafficData(oldTraffic, trafficArray)
 					delete(reservPbData, trafficArray[i].VCode+"t")
+					delete(pbData, trafficArray[i].VCode)
+
 
 					//if trafficArray[i].OrderID != data.OrderID {
 					//	if len(trafficArray[i].OrderID) == 0 && len(pbData[data.VCode].OrderID) != 0 {
