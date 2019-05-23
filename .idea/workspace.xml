@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6822ba28-0cdc-4cff-88f7-73813a181008" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/models/postback.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/postback.go" afterDir="false" />
-    </list>
+    <list default="true" id="6822ba28-0cdc-4cff-88f7-73813a181008" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -352,6 +350,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="-2" width="1920" height="1082" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.496136" visible="true" weight="0.26360726" />
       <window_info id="Favorites" order="1" sideWeight="0.503864" side_tool="true" weight="0.26360726" />
