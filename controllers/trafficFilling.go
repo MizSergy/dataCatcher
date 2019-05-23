@@ -235,7 +235,7 @@ func fillLeads() {
 	index2 := 10000
 	items := 1
 	for items > 0 {
-		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) BETWEEN '2019-03-03' AND '2019-04-01' AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
+		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) <= '2019-05-20' AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
 		var collected_data []models.PostBack
 		var vcodeArray []string
 		clickhouse := database.SqlxConnect()
@@ -305,7 +305,6 @@ func fillLeads() {
 					}
 
 					if data.CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
-						fmt.Println("Старый: ", trafficArray[i])
 						continue
 					}
 
@@ -325,8 +324,6 @@ func fillLeads() {
 					if reservPbData[trafficArray[i].VCode+"t"].CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
 						delete(reservPbData, trafficArray[i].VCode+"t")
 						delete(pbData, trafficArray[i].VCode)
-
-						fmt.Println("Старый резверв: ", trafficArray[i])
 						continue
 					}
 

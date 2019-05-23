@@ -159,9 +159,6 @@ func RewriteTrafficData(oldData []models.FullTraffic, newData []models.FullTraff
 		); err != nil {
 			fmt.Println(err.Error())
 		}
-		if len(item.Url) == 0 {
-			fmt.Println("pb c vcode=", item.VCode, "нет")
-		}
 		if _, err := stmt.Exec(
 			item.VCode,
 			item.CreateAt,
