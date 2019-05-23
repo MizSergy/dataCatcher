@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6822ba28-0cdc-4cff-88f7-73813a181008" name="Default Changelist" comment="" />
+    <list default="true" id="6822ba28-0cdc-4cff-88f7-73813a181008" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/Banning.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/Banning.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/trafficFilling.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/trafficFilling.go" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,14 +17,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="env" value="19" />
-          <entry key="go" value="7201" />
+          <entry key="go" value="7409" />
           <entry key="txt" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key=".env file" value="19" />
-          <entry key="Go" value="7192" />
+          <entry key="Go" value="7400" />
           <entry key="PLAIN_TEXT" value="36" />
           <entry key="SQL" value="9" />
         </counts>
@@ -85,8 +89,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/trafficFilling.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="305" column="27" selection-start-line="305" selection-start-column="23" selection-end-line="305" selection-end-column="27" />
+            <state relative-caret-position="288">
+              <caret line="320" selection-start-line="320" selection-end-line="320" />
             </state>
           </provider>
         </entry>
@@ -94,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/Banning.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="565">
-              <caret line="409" column="45" selection-start-line="409" selection-start-column="45" selection-end-line="409" selection-end-column="45" />
+            <state relative-caret-position="150">
+              <caret line="118" column="14" selection-start-line="118" selection-start-column="14" selection-end-line="118" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -103,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
+            <state relative-caret-position="255">
+              <caret line="22" column="23" lean-forward="true" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -171,7 +175,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>leads</find>
       <find>&amp;</find>
       <find>8</find>
       <find>*</find>
@@ -201,6 +204,7 @@
       <find>colle</find>
       <find>newTrafficArray</find>
       <find>Sub</find>
+      <find>короче</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -237,10 +241,10 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/models/leads.go" />
         <option value="$PROJECT_DIR$/models/breaks.go" />
-        <option value="$PROJECT_DIR$/controllers/Banning.go" />
-        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/controllers/TrafficData.go" />
         <option value="$PROJECT_DIR$/models/postback.go" />
+        <option value="$PROJECT_DIR$/controllers/Banning.go" />
+        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/controllers/trafficFilling.go" />
       </list>
     </option>
@@ -352,19 +356,19 @@
     <frame x="1920" y="-2" width="1920" height="1082" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.496136" visible="true" weight="0.26360726" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.496136" visible="true" weight="0.26360726" />
       <window_info id="Favorites" order="1" sideWeight="0.503864" side_tool="true" weight="0.26360726" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32983193" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32878152" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4980523" weight="0.32037815" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.4980523" visible="true" weight="0.32037815" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3297362" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4986088" visible="true" weight="0.33613446" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4986088" weight="0.33613446" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5019477" side_tool="true" weight="0.3681055" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -436,13 +440,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/controllers/trafficFilling.go</url>
-          <line>374</line>
+          <line>382</line>
           <properties />
           <option name="timeStamp" value="288" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/controllers/trafficFilling.go</url>
-          <line>352</line>
+          <line>361</line>
           <properties />
           <option name="timeStamp" value="299" />
         </line-breakpoint>
@@ -656,20 +660,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/Banning.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="565">
-          <caret line="409" column="45" selection-start-line="409" selection-start-column="45" selection-end-line="409" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/postback.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -687,10 +677,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/Banning.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="118" column="14" selection-start-line="118" selection-start-column="14" selection-end-line="118" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="23" lean-forward="true" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/trafficFilling.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="305" column="27" selection-start-line="305" selection-start-column="23" selection-end-line="305" selection-end-column="27" />
+        <state relative-caret-position="288">
+          <caret line="320" selection-start-line="320" selection-end-line="320" />
         </state>
       </provider>
     </entry>

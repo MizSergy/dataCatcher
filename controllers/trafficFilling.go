@@ -319,13 +319,16 @@ func fillLeads() {
 						delete(pbData, trafficArray[i].VCode)
 						continue
 					}
+					reservData := reservPbData[trafficArray[i].VCode+"t"]
 
 					if reservPbData[trafficArray[i].VCode+"t"].CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
+						delete(reservPbData, trafficArray[i].VCode+"t")
+						delete(pbData, trafficArray[i].VCode)
+
 						fmt.Println("Старый резверв: ", trafficArray[i])
 						continue
 					}
 
-					reservData := reservPbData[trafficArray[i].VCode+"t"]
 					newTrafficArray = append(newTrafficArray, reservData.TraffMerge(trafficArray[i]))
 
 					RewriteTrafficData(oldTraffic, trafficArray)
@@ -372,7 +375,6 @@ func fillLeads() {
 			}
 
 			for _, val := range reservPbData {
-				fmt.Println("Короче не вкоде в резерве ", val.VCode)
 				var newTraffic models.FullTraffic
 				newTraffic = val.TraffMerge(newTraffic)
 				newTrafficArray = append(newTrafficArray, newTraffic)
