@@ -296,13 +296,10 @@ func fillLeads() {
 				//------------------------------------------Мерджим данные--------------------------------------------------
 				for i := range trafficArray {
 					_, ok := pbData[trafficArray[i].VCode]
-					data := pbData[trafficArray[i].VCode]
-
 					if !ok {
-						newTrafficArray = append(newTrafficArray, trafficArray[i])
-						delete(pbData, trafficArray[i].VCode)
 						continue
 					}
+					data := pbData[trafficArray[i].VCode]
 
 					if data.CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
 						continue
