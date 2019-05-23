@@ -255,22 +255,35 @@ func fillLeads() {
 			}
 			item := collected_data[i]
 
-			if item.OrderID != pbData[item.VCode].OrderID || (len(item.OrderID) == 0 && len(pbData[item.VCode].OrderID) != 0) {
+			if item.CreateAt.Sub(pbData[collected_data[i].VCode].CreateAt) < 0 {
+				continue
+			}
+
+			if item.OrderID != pbData[item.VCode].OrderID && len(pbData[item.VCode].OrderID) != 0 {
 				_, ok := reservPbData[collected_data[i].VCode+"t"]
 				if !ok {
 					reservPbData[collected_data[i].VCode+"t"] = collected_data[i]
 					continue
 				}
-				if item.CreateAt.Sub(reservPbData[collected_data[i].VCode+"t"].CreateAt) < 0 {
-					continue
-				}
-				reservPbData[item.VCode+"t"] = collected_data[i]
-			} else {
-				if item.CreateAt.Sub(pbData[item.VCode].CreateAt) < 0 {
-					continue
-				}
-				pbData[item.VCode] = collected_data[i]
 			}
+			pbData[item.VCode] = collected_data[i]
+
+			//if item.OrderID != pbData[item.VCode].OrderID || (len(item.OrderID) == 0 && len(pbData[item.VCode].OrderID) != 0) {
+			//	_, ok := reservPbData[collected_data[i].VCode+"t"]
+			//	if !ok {
+			//		reservPbData[collected_data[i].VCode+"t"] = collected_data[i]
+			//		continue
+			//	}
+			//	if item.CreateAt.Sub(reservPbData[collected_data[i].VCode+"t"].CreateAt) < 0 {
+			//		continue
+			//	}
+			//	reservPbData[item.VCode+"t"] = collected_data[i]
+			//} else {
+			//	if item.CreateAt.Sub(pbData[item.VCode].CreateAt) < 0 {
+			//		continue
+			//	}
+			//	pbData[item.VCode] = collected_data[i]
+			//}
 		}
 		var newTrafficArray []models.FullTraffic
 
@@ -290,30 +303,52 @@ func fillLeads() {
 						delete(pbData, trafficArray[i].VCode)
 						continue
 					}
-					if data.CreateAt.Sub(trafficArray[i].CreateAt) >= 0 {
-						if trafficArray[i].OrderID != data.OrderID {
-							if len(trafficArray[i].OrderID) == 0 && len(pbData[data.VCode].OrderID) != 0 {
-								if len(data.OrderID) == 0 {
-									newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
-								} else {
-									trafficArray[i] = data.TraffMerge(trafficArray[i])
-								}
-							} else {
-								newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
-							}
-						} else {
-							trafficArray[i] = data.TraffMerge(trafficArray[i])
-						}
+					if data.CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
+						continue
 					}
-					if _, ok := reservPbData[trafficArray[i].VCode+"t"]; ok {
-						reservData := reservPbData[trafficArray[i].VCode+"t"]
 
-						if reservData.CreateAt.Sub(trafficArray[i].CreateAt) >= 0 {
-							newTrafficArray = append(newTrafficArray, reservData.TraffMerge(trafficArray[i]))
-						}
-						delete(reservPbData, trafficArray[i].VCode+"t")
+					if trafficArray[i].OrderID != data.OrderID && len(trafficArray[i].OrderID) != 0 {
+						newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
 					}
-					delete(pbData, trafficArray[i].VCode)
+					trafficArray[i] = data.TraffMerge(trafficArray[i])
+
+					_, ok = reservPbData[trafficArray[i].VCode+"t"]
+					if !ok {
+						continue
+					}
+
+					if reservPbData[trafficArray[i].VCode+"t"].CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
+						continue
+					}
+					reservData := reservPbData[trafficArray[i].VCode+"t"]
+
+					newTrafficArray = append(newTrafficArray, reservData.TraffMerge(trafficArray[i]))
+
+					RewriteTrafficData(oldTraffic, trafficArray)
+					delete(reservPbData, trafficArray[i].VCode+"t")
+
+					//if trafficArray[i].OrderID != data.OrderID {
+					//	if len(trafficArray[i].OrderID) == 0 && len(pbData[data.VCode].OrderID) != 0 {
+					//		if len(data.OrderID) == 0 {
+					//			newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
+					//		} else {
+					//			trafficArray[i] = data.TraffMerge(trafficArray[i])
+					//		}
+					//	} else {
+					//		newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
+					//	}
+					//} else {
+					//	trafficArray[i] = data.TraffMerge(trafficArray[i])
+					//}
+					//if _, ok := reservPbData[trafficArray[i].VCode+"t"]; ok {
+					//	reservData := reservPbData[trafficArray[i].VCode+"t"]
+					//
+					//	if reservData.CreateAt.Sub(trafficArray[i].CreateAt) >= 0 {
+					//		newTrafficArray = append(newTrafficArray, reservData.TraffMerge(trafficArray[i]))
+					//	}
+					//	delete(reservPbData, trafficArray[i].VCode+"t")
+					//}
+					//delete(pbData, trafficArray[i].VCode)
 				}
 				if len(oldTraffic) > 0 {
 					RewriteTrafficData(oldTraffic, trafficArray)
