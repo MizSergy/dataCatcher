@@ -329,7 +329,6 @@ func fillLeads() {
 
 					newTrafficArray = append(newTrafficArray, reservData.TraffMerge(trafficArray[i]))
 
-					RewriteTrafficData(oldTraffic, trafficArray)
 					delete(reservPbData, trafficArray[i].VCode+"t")
 					delete(pbData, trafficArray[i].VCode)
 
