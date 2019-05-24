@@ -8,8 +8,7 @@ import (
 )
 
 var breakData = make(map[string]*models.Breaking)
-var pbData = make(map[string]models.PostBack)
-var reservPbData = make(map[string]models.PostBack)
+var pbData = make(map[string]map[string]models.PostBack)
 
 func FillTraffic() {
 	//fillClicks()
@@ -235,6 +234,9 @@ func fillLeads() {
 	index2 := 10000
 	items := 1
 	for items > 0 {
+
+		pbData = make(map[string]map[string]models.PostBack)
+
 		select_query := fmt.Sprintf(`SELECT * FROM tracker_db.post_backs PREWHERE toDate(create_at) BETWEEN '2019-03-02' AND '2019-04-01' AND LENGTH (vcode) = 36 ORDER BY create_at asc LIMIT %d,%d`, index, index2)
 		var collected_data []models.PostBack
 		var vcodeArray []string
@@ -247,42 +249,37 @@ func fillLeads() {
 		index += index2 + 1
 
 		for i := range collected_data {
-			_, ok := pbData[collected_data[i].VCode]
-			if !ok {
-				pbData[collected_data[i].VCode] = collected_data[i]
+			vcode := collected_data[i].VCode
+			orderId := collected_data[i].OrderID
+			_, ok := pbData[vcode]
+ 			if !ok {
 				vcodeArray = append(vcodeArray, collected_data[i].VCode)
-				continue
-			}
-			item := collected_data[i]
-
-			if item.CreateAt.Sub(pbData[collected_data[i].VCode].CreateAt) < 0 {
-				continue
-			}
-
-			if item.OrderID != pbData[item.VCode].OrderID && len(pbData[item.VCode].OrderID) != 0 {
-				reservPbData[collected_data[i].VCode+"t"] = collected_data[i]
+				pbData[vcode] = make(map[string]models.PostBack)
+				if len(orderId) == 0 {
+					pbData[vcode][""] = collected_data[i]
 					continue
+				}
+				pbData[vcode][orderId] = collected_data[i]
+				continue
 			}
 
-			pbData[item.VCode] = collected_data[i]
+			_, ok = pbData[vcode][orderId]
+			if !ok {
+				if len(orderId) == 0 {
+					pbData[vcode][""] = collected_data[i]
+					continue
+				}
+				pbData[vcode][orderId] = collected_data[i]
+				continue
+			}
 
-			//if item.OrderID != pbData[item.VCode].OrderID || (len(item.OrderID) == 0 && len(pbData[item.VCode].OrderID) != 0) {
-			//	_, ok := reservPbData[collected_data[i].VCode+"t"]
-			//	if !ok {
-			//		reservPbData[collected_data[i].VCode+"t"] = collected_data[i]
-			//		continue
-			//	}
-			//	if item.CreateAt.Sub(reservPbData[collected_data[i].VCode+"t"].CreateAt) < 0 {
-			//		continue
-			//	}
-			//	reservPbData[item.VCode+"t"] = collected_data[i]
-			//} else {
-			//	if item.CreateAt.Sub(pbData[item.VCode].CreateAt) < 0 {
-			//		continue
-			//	}
-			//	pbData[item.VCode] = collected_data[i]
-			//}
+			if collected_data[i].CreateAt.Sub(pbData[vcode][orderId].CreateAt) < 0 {
+				continue
+			}
+
+			pbData[vcode][orderId] = collected_data[i]
 		}
+
 		var newTrafficArray []models.FullTraffic
 
 		if len(vcodeArray) > 0 {
@@ -293,63 +290,30 @@ func fillLeads() {
 				copy(oldTraffic, trafficArray)
 				//------------------------------------------Мерджим данные--------------------------------------------------
 				for i := range trafficArray {
-					_, ok := pbData[trafficArray[i].VCode]
+					vcode := trafficArray[i].VCode
+					orderId := trafficArray[i].OrderID
+					_, ok := pbData[vcode]
 					if !ok {
 						continue
 					}
-					data := pbData[trafficArray[i].VCode]
 
-					if data.CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
+					if len(orderId) > 0 {
+						if trafficArray[i].CreateAt.Sub(pbData[vcode][orderId].CreateAt) < 0 {
+							continue
+						}
+						_, ok = pbData[vcode][orderId]
+						if !ok {
+							continue
+						}
+						trafficArray[i] = pbData[vcode][orderId].TraffMerge(trafficArray[i])
+						delete(pbData[vcode], orderId)
 						continue
 					}
 
-					if trafficArray[i].OrderID != data.OrderID && len(trafficArray[i].OrderID) != 0 {
-						newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
-					} else {
-						trafficArray[i] = data.TraffMerge(trafficArray[i])
+					for _,v := range pbData[vcode]{
+						newTrafficArray = append(newTrafficArray, v.TraffMerge(trafficArray[i]))
 					}
-
-					_, ok = reservPbData[trafficArray[i].VCode+"t"]
-					if !ok {
-						delete(pbData, trafficArray[i].VCode)
-						continue
-					}
-					reservData := reservPbData[trafficArray[i].VCode+"t"]
-
-					if reservPbData[trafficArray[i].VCode+"t"].CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
-						delete(reservPbData, trafficArray[i].VCode+"t")
-						delete(pbData, trafficArray[i].VCode)
-						continue
-					}
-
-					newTrafficArray = append(newTrafficArray, reservData.TraffMerge(trafficArray[i]))
-
-					delete(reservPbData, trafficArray[i].VCode+"t")
-					delete(pbData, trafficArray[i].VCode)
-
-
-					//if trafficArray[i].OrderID != data.OrderID {
-					//	if len(trafficArray[i].OrderID) == 0 && len(pbData[data.VCode].OrderID) != 0 {
-					//		if len(data.OrderID) == 0 {
-					//			newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
-					//		} else {
-					//			trafficArray[i] = data.TraffMerge(trafficArray[i])
-					//		}
-					//	} else {
-					//		newTrafficArray = append(newTrafficArray, data.TraffMerge(trafficArray[i]))
-					//	}
-					//} else {
-					//	trafficArray[i] = data.TraffMerge(trafficArray[i])
-					//}
-					//if _, ok := reservPbData[trafficArray[i].VCode+"t"]; ok {
-					//	reservData := reservPbData[trafficArray[i].VCode+"t"]
-					//
-					//	if reservData.CreateAt.Sub(trafficArray[i].CreateAt) >= 0 {
-					//		newTrafficArray = append(newTrafficArray, reservData.TraffMerge(trafficArray[i]))
-					//	}
-					//	delete(reservPbData, trafficArray[i].VCode+"t")
-					//}
-					//delete(pbData, trafficArray[i].VCode)
+					delete(pbData[vcode], vcode)
 				}
 				if len(oldTraffic) > 0 {
 					RewriteTrafficData(oldTraffic, trafficArray)
@@ -360,18 +324,13 @@ func fillLeads() {
 			time.Sleep(time.Second)
 
 			for _, val := range pbData {
-				var newTraffic models.FullTraffic
-				newTraffic = val.TraffMerge(newTraffic)
-				newTrafficArray = append(newTrafficArray, newTraffic)
-				delete(pbData, val.VCode)
+				for _, val := range val {
+					var newTraffic models.FullTraffic
+					newTrafficArray = append(newTrafficArray, val.TraffMerge(newTraffic))
+					delete(pbData, val.VCode)
+				}
 			}
 
-			for _, val := range reservPbData {
-				var newTraffic models.FullTraffic
-				newTraffic = val.TraffMerge(newTraffic)
-				newTrafficArray = append(newTrafficArray, newTraffic)
-				delete(pbData, val.VCode+"t")
-			}
 			if len(newTrafficArray) > 0 {
 				WriteTrafficData(newTrafficArray)
 			}
