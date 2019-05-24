@@ -252,7 +252,7 @@ func fillLeads() {
 			vcode := collected_data[i].VCode
 			orderId := collected_data[i].OrderID
 			_, ok := pbData[vcode]
- 			if !ok {
+			if !ok {
 				vcodeArray = append(vcodeArray, collected_data[i].VCode)
 				pbData[vcode] = make(map[string]models.PostBack)
 				if len(orderId) == 0 {
@@ -310,9 +310,6 @@ func fillLeads() {
 						continue
 					}
 
-					for _,v := range pbData[vcode]{
-						newTrafficArray = append(newTrafficArray, v.TraffMerge(trafficArray[i]))
-					}
 					delete(pbData[vcode], vcode)
 				}
 				if len(oldTraffic) > 0 {
