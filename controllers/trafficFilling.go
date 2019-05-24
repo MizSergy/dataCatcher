@@ -300,7 +300,10 @@ func fillLeads() {
 					if !ok {
 						if len(orderId)==0{
 							for _,v := range pbData[vcode]{
-								if trafficArray[i].CreateAt.Sub(v.CreateAt) < 0 {
+								fmt.Println(trafficArray[i].CreateAt)
+								fmt.Println(v.CreateAt)
+
+								if v.CreateAt.Sub(trafficArray[i].CreateAt) < 0 {
 									continue
 								}
 								trafficArray[i] = v.TraffMerge(trafficArray[i])
