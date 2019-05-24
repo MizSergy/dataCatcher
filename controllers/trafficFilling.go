@@ -296,21 +296,36 @@ func fillLeads() {
 					if !ok {
 						continue
 					}
-
-					if len(orderId) > 0 {
-						if trafficArray[i].CreateAt.Sub(pbData[vcode][orderId].CreateAt) < 0 {
-							continue
+					_, ok = pbData[vcode][orderId]
+					if !ok {
+						if len(orderId)==0{
+							for _,v := range pbData[vcode]{
+								if trafficArray[i].CreateAt.Sub(v.CreateAt) < 0 {
+									continue
+								}
+								trafficArray[i] = v.TraffMerge(trafficArray[i])
+								delete(pbData[vcode], v.OrderID)
+								break
+							}
 						}
-						_, ok = pbData[vcode][orderId]
-						if !ok {
-							continue
-						}
-						trafficArray[i] = pbData[vcode][orderId].TraffMerge(trafficArray[i])
-						delete(pbData[vcode], orderId)
 						continue
 					}
 
-					delete(pbData[vcode], vcode)
+					if trafficArray[i].CreateAt.Sub(pbData[vcode][orderId].CreateAt) < 0 {
+						continue
+					}
+
+					trafficArray[i] = pbData[vcode][orderId].TraffMerge(trafficArray[i])
+					delete(pbData[vcode], orderId)
+
+					//if len(orderId) == 0 {
+					//	trafficArray[i] = pbData[vcode][orderId].TraffMerge(trafficArray[i])
+					//	delete(pbData[vcode], orderId)
+					//	continue
+					//} else {
+					//
+					//}
+					//delete(pbData, vcode)
 				}
 				if len(oldTraffic) > 0 {
 					RewriteTrafficData(oldTraffic, trafficArray)
@@ -321,10 +336,10 @@ func fillLeads() {
 			time.Sleep(time.Second)
 
 			for _, val := range pbData {
-				for _, val := range val {
+				for _, item := range val {
 					var newTraffic models.FullTraffic
-					newTrafficArray = append(newTrafficArray, val.TraffMerge(newTraffic))
-					delete(pbData, val.VCode)
+					newTrafficArray = append(newTrafficArray, item.TraffMerge(newTraffic))
+					delete(pbData[item.VCode], item.OrderID)
 				}
 			}
 
