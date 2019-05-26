@@ -35,18 +35,14 @@ func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
 	if c.CreateDate.Sub(val.CreateAt) < 0 && c.OrderID == val.OrderID {
 		return val
 	}
-	if len(val.VCode) == 0{
-		val.IsClick = 0
-	} else {
-		if val.OrderID != c.OrderID {
-			if val.IsClick == 1 && len(val.OrderID) != 0{
-				val.IsClick = 0
-			} else {
-				val.IsClick = 1
-			}
+	if val.OrderID != c.OrderID {
+		if (val.IsClick == 1 && len(val.OrderID) != 0) || len(val.VCode) == 0 {
+			val.IsClick = 0
 		} else {
 			val.IsClick = 1
 		}
+	} else {
+		val.IsClick = 1
 	}
 
 	val.OrderID = c.OrderID
