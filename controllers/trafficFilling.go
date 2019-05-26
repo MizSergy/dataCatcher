@@ -341,6 +341,7 @@ func fillLeads() {
 			for _, val := range pbData {
 				for _, item := range val {
 					var newTraffic models.FullTraffic
+					newTraffic.IsClick = 1
 					newTrafficArray = append(newTrafficArray, item.TraffMerge(newTraffic))
 					delete(pbData[item.VCode], item.OrderID)
 				}
