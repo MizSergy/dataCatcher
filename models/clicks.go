@@ -1,17 +1,19 @@
 package models
 
-import "time"
+import (
+	"redisCatcher/logging"
+	"time"
+)
 
 type Click struct {
 	CreateAt time.Time `json:"create_at" db:"create_at"`
 	VCode    string    `json:"vcode" db:"vcode"`
-
 	IsUnique uint8 `json:"is_unique" db:"is_unique"`
 	IsMobil  uint8 `json:"is_mobil" db:"is_mobil"`
 	Device   int32 `json:"device" db:"device"`
-
 	Campaign    int32   `json:"campaign" db:"campaign"`
 	SourceID    int32   `json:"source_id" db:"source_id"`
+	AffiliateID int32   `json:"affiliate_id" db:"affiliate_id"`
 	ClickPrice  float32 `json:"click_price" db:"click_price"`
 	Browser     string  `json:"browser" db:"browser"`
 	BrowserV    string  `json:"browserv" db:"browserv"`
@@ -37,38 +39,52 @@ type Click struct {
 	CountryCode string  `json:"country_code" db:"country_code"`
 }
 
-func (c Click) Merge(val FullTraffic) FullTraffic {
-	val.VCode = c.VCode
-	val.CreateAt = c.CreateAt
-	val.CreateAt = c.CreateAt
-	val.CreateAt = c.CreateAt
-	val.IsUnique = c.IsUnique
-	val.IsTest = c.IsTest
-	val.Campaign = c.Campaign
-	val.SourceID = c.SourceID
-	val.ClickPrice = c.ClickPrice
-	val.IsMobil = c.IsMobil
-	val.Device = c.Device
-	val.Browser = c.Browser
-	val.BrowserV = c.BrowserV
-	val.Os = c.Os
-	val.OsV = c.OsV
-	val.CountryCode = c.CountryCode
-	val.Country = c.Country
-	val.Region = c.Region
-	val.City = c.City
-	val.Ip = c.Ip
-	val.Ad = c.Ad
-	val.Site = c.Site
-	val.Sid1 = c.Sid1
-	val.Sid2 = c.Sid2
-	val.Sid3 = c.Sid3
-	val.Sid4 = c.Sid4
-	val.Sid5 = c.Sid5
-	val.Sid6 = c.Sid6
-	val.Sid7 = c.Sid7
-	val.PrelandUrl = c.PrelandUrl
-	val.PrelandID = c.PrelandID
-	val.Session = c.Session
-	return val
+func (c Click) GetVCode() string {
+	return c.VCode
+}
+
+func (c Click) Merge(f FullTraffic) FullTraffic {
+	// Переприсваиваем клики
+	if c.IsUnique != 0 {
+		f.IsUnique = c.IsUnique
+	}
+	f.Campaign = logging.CheckOnEmptyInt(c.Campaign)
+	f.SourceID = logging.CheckOnEmptyInt(c.SourceID)
+	if c.ClickPrice > 0 {
+		f.ClickPrice = c.ClickPrice
+	}
+	if c.IsMobil > 0 {
+		f.IsMobil = c.IsMobil
+	}
+	if c.Device > 0 {
+		f.Device = c.Device
+	}
+	f.Browser = logging.CheckOnEmptyStr(c.Browser)
+	f.BrowserV = logging.CheckOnEmptyStr(c.BrowserV)
+	f.Os = logging.CheckOnEmptyStr(c.Os)
+	f.OsV = logging.CheckOnEmptyStr(c.OsV)
+	f.CountryCode = logging.CheckOnEmptyStr(c.CountryCode)
+	f.Country = logging.CheckOnEmptyStr(c.Country)
+	f.Region = logging.CheckOnEmptyStr(c.Region)
+	f.City = logging.CheckOnEmptyStr(c.City)
+	if c.Ip > 0 {
+		f.Ip = c.Ip
+	}
+	f.Ad = logging.CheckOnEmptyStr(c.Ad)
+	f.Site = logging.CheckOnEmptyStr(c.Site)
+	f.Sid1 = logging.CheckOnEmptyStr(c.Sid1)
+	f.Sid2 = logging.CheckOnEmptyStr(c.Sid2)
+	f.Sid3 = logging.CheckOnEmptyStr(c.Sid3)
+	f.Sid4 = logging.CheckOnEmptyStr(c.Sid4)
+	f.Sid5 = logging.CheckOnEmptyStr(c.Sid5)
+	f.Sid6 = logging.CheckOnEmptyStr(c.Sid6)
+	f.Sid7 = logging.CheckOnEmptyStr(c.Sid7)
+	f.PrelandUrl = logging.CheckOnEmptyStr(c.PrelandUrl)
+	f.PrelandID = logging.CheckOnEmptyInt(c.PrelandID)
+	f.Session = logging.CheckOnEmptyStr(c.Session)
+	return f
+}
+
+func (c Click) UpdateClick(vcode string) {
+	vcode = c.VCode
 }

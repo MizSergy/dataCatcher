@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/kshvakov/clickhouse/lib/types"
+	"redisCatcher/logging"
 	"time"
 )
 
@@ -24,43 +25,22 @@ type Breaking struct {
 	Server string `json:"server_number"`
 }
 
-func (c Breaking) Merge(val FullTraffic) FullTraffic {
-	if c.ProcessInterval > 0{
-		val.ProcessInterval = c.ProcessInterval
+func (b Breaking) Merge(f FullTraffic) FullTraffic {
+	if b.IsBreaked != 0 {
+		f.StreamId = logging.CheckOnEmptyInt(b.StreamId)
+		f.AffiliateID = logging.CheckOnEmptyInt(b.AffiliateID)
+	} else if b.IsBreaked == 0 && f.StreamId != 0{
+		f.StreamId = logging.CheckOnEmptyInt(b.StreamId)
+		f.AffiliateID = logging.CheckOnEmptyInt(b.AffiliateID)
 	}
-	if c.ScreenWidth != 0{
-		val.ScreenWidth = c.ScreenWidth
+	if b.ProcessInterval > 0 {
+		f.ProcessInterval = b.ProcessInterval
 	}
-	if c.ScreenHeight != 0{
-		val.ScreenHeight = c.ScreenHeight
+	if b.ProcessInterval < 14 && b.ProcessInterval != 0 {
+		f.IsRefused = 1
 	}
-	if len(c.Language) != 0 {
-		val.Language = c.Language
-	}
-
-	if c.IsBreaked != 0{
-		val.IsBreaked = c.IsBreaked
-		if c.CreateAt.Sub(val.CreateAt) >= 0 {
-			val.CreateAt = c.CreateAt
-			if c.StreamId != 0{
-				val.StreamId = c.StreamId
-			}
-			if c.AffiliateID != 0{
-				val.AffiliateID = c.AffiliateID
-			}
-		}
-	} else {
-		if c.StreamId != 0{
-			val.StreamId = c.StreamId
-		}
-		if c.AffiliateID != 0{
-			val.AffiliateID = c.AffiliateID
-		}
-	}
-
-	if c.ProcessInterval != 0 && c.ProcessInterval < 14{
-		val.IsRefused = 1
-	}
-
-	return val
+	f.ScreenWidth = logging.CheckOnEmptyInt(b.ScreenWidth)
+	f.ScreenHeight = logging.CheckOnEmptyInt(b.ScreenHeight)
+	f.Language = logging.CheckOnEmptyStr(b.Language)
+	return f
 }

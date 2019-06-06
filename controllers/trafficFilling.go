@@ -284,7 +284,7 @@ func fillLeads() {
 
 		if len(vcodeArray) > 0 {
 			//------------------------------------------Получаем клики из таблицы трафика-------------------------------
-			trafficArray := GetTrafficData(database.SqlxConnect(), vcodeArray)
+			trafficArray := GetTrafficData(vcodeArray)
 			if len(trafficArray) > 0 {
 				oldTraffic := make([]models.FullTraffic, len(trafficArray))
 				copy(oldTraffic, trafficArray)
@@ -304,9 +304,10 @@ func fillLeads() {
 									continue
 								}
 								trafficArray[i] = v.TraffMerge(trafficArray[i])
-								delete(pbData[vcode], v.OrderID)
 								break
 							}
+						} else {
+
 						}
 						continue
 					}
@@ -338,7 +339,6 @@ func fillLeads() {
 			for _, val := range pbData {
 				for _, item := range val {
 					var newTraffic models.FullTraffic
-					newTraffic.IsClick = 1
 					newTrafficArray = append(newTrafficArray, item.TraffMerge(newTraffic))
 					delete(pbData[item.VCode], item.OrderID)
 				}

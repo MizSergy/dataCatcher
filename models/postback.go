@@ -28,47 +28,47 @@ type PostBack struct {
 	ResultMessage string  `json:"result_message" db:"result_message"`
 }
 
-func (c PostBack) TraffMerge(val FullTraffic) FullTraffic {
+func (c PostBack) Merge(f FullTraffic) FullTraffic {
 	if c.CreateDate.IsZero() {
 		c.CreateDate = time.Now()
 	}
-	if c.CreateDate.Sub(val.CreateAt) < 0 && c.OrderID == val.OrderID {
-		return val
+	if c.CreateDate.Sub(f.CreateAt) < 0 && c.OrderID == f.OrderID {
+		return f
 	}
-	if val.OrderID != c.OrderID {
-		if (val.IsClick == 1 && len(val.OrderID) != 0) || len(val.VCode) == 0 {
-			val.IsClick = 0
+	if f.OrderID != c.OrderID {
+		if (f.IsClick == 1 && len(f.OrderID) != 0) || len(f.VCode) == 0 {
+			f.IsClick = 0
 		} else {
-			val.IsClick = 1
+			f.IsClick = 1
 		}
 	} else {
-		val.IsClick = 1
+		f.IsClick = 1
 	}
 
-	val.OrderID = c.OrderID
-	val.CreateAt = c.CreateAt
-	val.VCode = c.VCode
-	val.LeadCreate = c.CreateDate
-	val.CreateDate = c.CreateDate
-	val.Url = c.Url
-	val.Method = c.Method
-	val.Params = c.Params
-	val.StatusConfirmed = c.StatusConfirmed
-	val.StatusHold = c.StatusHold
-	val.StatusDeclined = c.StatusDeclined
-	val.StatusOther = c.StatusOther
-	val.StatusPaid = c.StatusPaid
+	f.OrderID = c.OrderID
+	f.CreateAt = c.CreateAt
+	f.VCode = c.VCode
+	f.LeadCreate = c.CreateDate
+	f.CreateDate = c.CreateDate
+	f.Url = c.Url
+	f.Method = c.Method
+	f.Params = c.Params
+	f.StatusConfirmed = c.StatusConfirmed
+	f.StatusHold = c.StatusHold
+	f.StatusDeclined = c.StatusDeclined
+	f.StatusOther = c.StatusOther
+	f.StatusPaid = c.StatusPaid
 
 	if c.StatusConfirmed == 1 {
-		val.Profit = c.Amount
+		f.Profit = c.Amount
 	}
 
-	val.Amount = c.Amount
-	val.ResultMessage = c.ResultMessage
+	f.Amount = c.Amount
+	f.ResultMessage = c.ResultMessage
 	if c.PredictProfit == 0 && c.StatusHold == 1 {
-		val.PredictProfit = c.Amount
-		return val
+		f.PredictProfit = c.Amount
+		return f
 	}
-	val.PredictProfit = c.PredictProfit
-	return val
+	f.PredictProfit = c.PredictProfit
+	return f
 }

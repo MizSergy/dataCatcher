@@ -1,10 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"github.com/joho/godotenv"
 	"log"
 	"redisCatcher/controllers"
 	"redisCatcher/db"
+	"redisCatcher/logging"
+	"redisCatcher/models"
 )
 //
 //var leads = make(map[string]models.PostBack)
@@ -19,10 +22,28 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 	database.ClickhouseInit()
+	controllers.FillClicks()
+	//CollectClicks()
 	//controllers.Ban()
-	controllers.FillTraffic()
+	//controllers.FillTraffic()
 	//database.MongoConnect()
 	//DataMerger()
+}
+
+func CollectClicks() {
+	select_query := fmt.Sprintf(`
+SELECT 
+	*
+FROM tracker_db.click_logs
+PREWHERE toDate(create_at) BETWEEN '2019-03-05' and '2019-03-15'`)
+	clickhouse := database.SqlxConnect()
+	var collected_data []models.Click
+	if err := clickhouse.Select(&collected_data, select_query); err != nil {
+		fmt.Println(err)
+	}
+	clickhouse.Close()
+	fmt.Println("Взяли")
+	logging.Rewrite(collected_data)
 }
 
 //

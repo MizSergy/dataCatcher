@@ -1,10 +1,9 @@
 package controllers
 
 import (
+	"fmt"
 	"redisCatcher/db"
 	"redisCatcher/models"
-	"fmt"
-	"github.com/jmoiron/sqlx"
 	"strings"
 	"time"
 )
@@ -13,14 +12,14 @@ type DataMerger interface {
 	Merge(traffic models.FullTraffic) models.FullTraffic
 }
 
-func GetTrafficData(clickhouse *sqlx.DB, vcodeArray []string) []models.FullTraffic {
+func GetTrafficData(vcodeArray []string) []models.FullTraffic {
 	var vcodeString string
 	if len(vcodeArray) > 1 {
 		vcodeString = "'" + strings.Join(vcodeArray, "','") + "'"
 	} else {
 		vcodeString = "'" + vcodeArray[0] + "'"
 	}
-
+	clickhouse := database.SqlxConnect()
 	select_query := fmt.Sprintf(`SELECT * FROM tracker_db.traffic_data1 FINAL PREWHERE vcode IN (%s)`, vcodeString)
 	var collected_data []models.FullTraffic
 	if err := clickhouse.Select(&collected_data, select_query); err != nil {

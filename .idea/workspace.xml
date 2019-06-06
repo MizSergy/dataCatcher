@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6822ba28-0cdc-4cff-88f7-73813a181008" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/Collector.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/addClickAffiliate.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/TrafficData.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TrafficData.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/trafficFilling.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/trafficFilling.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/breaks.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/breaks.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/clicks.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/clicks.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/postback.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/postback.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -12,19 +18,33 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="FUSProjectUsageTrigger">
     <session id="2124125779">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="env" value="19" />
-          <entry key="go" value="9238" />
+          <entry key="go" value="13462" />
           <entry key="txt" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key=".env file" value="19" />
-          <entry key="Go" value="9229" />
+          <entry key="Go" value="13453" />
           <entry key="PLAIN_TEXT" value="36" />
           <entry key="SQL" value="9" />
         </counts>
@@ -32,30 +52,32 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="env" value="2" />
-          <entry key="go" value="35" />
+          <entry key="go" value="54" />
           <entry key="s" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key=".env file" value="2" />
-          <entry key="Go" value="35" />
+          <entry key="Go" value="54" />
           <entry key="x86 Plan9 Assembly" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.go.postfix.template.usages.trigger">
         <counts>
-          <entry key=".len" value="29" />
+          <entry key=".len" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="7" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="4" />
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.21" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.open.time.28" value="1" />
+          <entry key="project.open.time.29" value="1" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
     </session>
@@ -66,22 +88,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/leads.go">
+        <entry file="file://$PROJECT_DIR$/models/breaks.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" selection-start-line="2" selection-end-line="24" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/models/postback.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="498">
-              <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
-              <folding>
-                <element signature="e#16#52#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="615">
+              <caret line="45" column="1" selection-start-line="45" selection-start-column="1" selection-end-line="45" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -89,8 +99,56 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/trafficFilling.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="344" column="72" selection-start-line="344" selection-start-column="72" selection-end-line="344" selection-end-column="72" />
+            <state relative-caret-position="615">
+              <caret line="76" column="24" lean-forward="true" selection-start-line="24" selection-end-line="76" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/Collector.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="23" column="45" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/TrafficData.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="29" column="1" selection-start-line="14" selection-end-line="29" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controllers/addClickAffiliate.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+              <folding>
+                <element signature="e#21#57#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/clicks.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -105,55 +163,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/runtime/proc.go">
+        <entry file="file://$PROJECT_DIR$/models/trafficData.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="153" selection-start-line="153" selection-end-line="153" />
+            <state relative-caret-position="930">
+              <caret line="65" lean-forward="true" selection-start-line="65" selection-end-line="65" />
+              <folding>
+                <element signature="e#16#78#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/runtime/asm_amd64.s">
+        <entry file="file://$PROJECT_DIR$/models/stream.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="590">
-              <caret line="521" selection-start-line="521" selection-end-line="521" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="22" column="23" lean-forward="true" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/runtime/panic.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="680" selection-start-line="680" selection-end-line="680" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.env">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="38" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/TrafficData.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="226" selection-start-line="226" selection-end-line="226" />
+            <state relative-caret-position="405">
+              <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -169,40 +194,49 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>*</find>
-      <find>[0]</find>
-      <find>time</find>
-      <find>model</find>
-      <find>rewriteClick</find>
-      <find>creat</find>
-      <find>create_at</find>
-      <find>VCode</find>
-      <find>CreateDate</find>
-      <find>SqlxConnect</find>
-      <find>collected_data</find>
-      <find>reservPbData</find>
-      <find>pbData</find>
-      <find>trafficArray</find>
-      <find>order</find>
-      <find>OrderID</find>
-      <find>len</find>
-      <find>oldTraffic</find>
-      <find>serf</find>
       <find>cerf</find>
       <find>rew</find>
       <find>IsClick</find>
       <find>colle</find>
       <find>Sub</find>
       <find>короче</find>
-      <find>fmt</find>
       <find>newTrafficArray</find>
       <find>breakData</find>
-      <find>fm</find>
       <find>for</find>
+      <find>AddOrUpdateOrder</find>
+      <find>id</find>
+      <find>val</find>
+      <find>CreateAt</find>
+      <find>alltab</find>
+      <find>fm</find>
+      <find>fmt</find>
+      <find>order</find>
+      <find>AllTable</find>
+      <find>allta</find>
+      <find>UpdateVcode</find>
+      <find>AddOrUpdate</find>
+      <find>controllers</find>
+      <find>click</find>
+      <find>Rewrite</find>
+      <find>Items</find>
+      <find>Log</find>
+      <find>rewr</find>
+      <find>checkOnEmptyStr</find>
+      <find>checkOnEmptyItn</find>
+      <find>CheckOnEmptyInt</find>
     </findStrings>
     <replaceStrings>
       <replace />
       <replace>models</replace>
+      <replace>cd</replace>
+      <replace>l</replace>
+      <replace>i</replace>
+      <replace>logging.checkOnEmptyItn</replace>
+      <replace>logging.CheckOnEmptyItn</replace>
+      <replace>logging.checkOnEmptyStr</replace>
+      <replace>CheckOnEmptyStr</replace>
+      <replace>CheckOnEmptyInt</replace>
+      <replace>logging.CheckOnEmptyInt</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -229,17 +263,22 @@
         <option value="$PROJECT_DIR$/db/BlackBan].go" />
         <option value="$PROJECT_DIR$/db/BlackBan.go" />
         <option value="$PROJECT_DIR$/models/blackList.go" />
-        <option value="$PROJECT_DIR$/models/clicks.go" />
-        <option value="$PROJECT_DIR$/db/clickhouse.go" />
-        <option value="$PROJECT_DIR$/models/trafficData.go" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/models/leads.go" />
-        <option value="$PROJECT_DIR$/models/breaks.go" />
         <option value="$PROJECT_DIR$/controllers/Banning.go" />
-        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/controllers/logging.go" />
+        <option value="$PROJECT_DIR$/db/clickhouse.go" />
         <option value="$PROJECT_DIR$/controllers/TrafficData.go" />
+        <option value="$PROJECT_DIR$/models/logging.go" />
         <option value="$PROJECT_DIR$/controllers/trafficFilling.go" />
+        <option value="$PROJECT_DIR$/models/trafficData.go" />
+        <option value="$PROJECT_DIR$/models/breaks.go" />
+        <option value="$PROJECT_DIR$/logging/logging.go" />
         <option value="$PROJECT_DIR$/models/postback.go" />
+        <option value="$PROJECT_DIR$/controllers/Collector.go" />
+        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/models/clicks.go" />
+        <option value="$PROJECT_DIR$/controllers/addClickAffiliate.go" />
       </list>
     </option>
   </component>
@@ -281,6 +320,11 @@
             <path>
               <item name="redisCatcher" type="b2602c69:ProjectViewProjectNode" />
               <item name="redisCatcher" type="462c0819:PsiDirectoryNode" />
+              <item name="logging" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="redisCatcher" type="b2602c69:ProjectViewProjectNode" />
+              <item name="redisCatcher" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -296,14 +340,18 @@
     <property name="configurable.Global.GOPATH.is.expanded" value="true" />
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tracker" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/logging" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/models" />
       <recent name="$PROJECT_DIR$/controllers" />
       <recent name="$PROJECT_DIR$/db" />
       <recent name="$PROJECT_DIR$" />
@@ -350,13 +398,13 @@
     <frame x="1920" y="-2" width="1920" height="1082" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49683544" visible="true" weight="0.26360726" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49683544" visible="true" weight="0.27001068" />
       <window_info id="Favorites" order="1" sideWeight="0.503864" side_tool="true" weight="0.26360726" />
       <window_info id="Structure" order="2" sideWeight="0.5031645" side_tool="true" weight="0.26360726" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32983193" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32878152" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49733192" visible="true" weight="0.32037815" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49733192" visible="true" weight="0.26680672" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3297362" />
@@ -365,10 +413,11 @@
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49786553" weight="0.33613446" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50213444" side_tool="true" weight="0.33613446" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Messages" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Database" order="3" weight="0.32977587" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -387,86 +436,33 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/main.go</url>
-          <line>189</line>
+          <line>210</line>
           <option name="timeStamp" value="122" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/main.go</url>
-          <line>256</line>
+          <line>277</line>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/main.go</url>
-          <line>44</line>
+          <line>65</line>
           <option name="timeStamp" value="142" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/main.go</url>
-          <line>382</line>
+          <line>403</line>
           <option name="timeStamp" value="153" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/main.go</url>
-          <line>383</line>
+          <line>404</line>
           <option name="timeStamp" value="154" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/main.go</url>
-          <line>377</line>
+          <line>398</line>
           <option name="timeStamp" value="160" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/controllers/TrafficData.go</url>
-          <line>221</line>
-          <option name="timeStamp" value="221" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/controllers/TrafficData.go</url>
-          <line>230</line>
-          <properties />
-          <option name="timeStamp" value="224" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/controllers/trafficFilling.go</url>
-          <line>349</line>
-          <properties />
-          <option name="timeStamp" value="288" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/controllers/trafficFilling.go</url>
-          <line>332</line>
-          <properties />
-          <option name="timeStamp" value="299" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/controllers/trafficFilling.go</url>
-          <line>296</line>
-          <properties />
-          <option name="timeStamp" value="314" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/controllers/trafficFilling.go</url>
-          <line>287</line>
-          <properties />
-          <option name="timeStamp" value="316" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/controllers/trafficFilling.go</url>
-          <line>313</line>
-          <properties />
-          <option name="timeStamp" value="319" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/controllers/trafficFilling.go</url>
-          <line>306</line>
-          <properties />
-          <option name="timeStamp" value="322" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/controllers/TrafficData.go</url>
-          <line>307</line>
-          <properties />
-          <option name="timeStamp" value="324" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -588,20 +584,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/clicks.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1095">
-          <caret line="73" column="1" selection-start-line="73" selection-start-column="1" selection-end-line="73" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/clickhouse.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/mongo.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -609,58 +591,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/stream.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/breaks.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="60" column="55" selection-start-line="60" selection-start-column="55" selection-end-line="60" selection-end-column="55" />
-          <folding>
-            <element signature="e#16#78#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/trafficData.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-377">
-          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
-          <folding>
-            <element signature="e#16#78#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/redis.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/leads.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" selection-start-line="2" selection-end-line="24" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/Banning.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="118" column="14" selection-start-line="118" selection-start-column="14" selection-end-line="118" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="22" column="23" lean-forward="true" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -685,6 +619,7 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/logging.go" />
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -692,26 +627,106 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/TrafficData.go">
+    <entry file="file://$PROJECT_DIR$/db/clickhouse.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="226" selection-start-line="226" selection-end-line="226" />
+        <state relative-caret-position="990">
+          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/trafficFilling.go">
+    <entry file="file://$PROJECT_DIR$/models/leads.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="344" column="72" selection-start-line="344" selection-start-column="72" selection-end-line="344" selection-end-column="72" />
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="24" selection-end-column="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/postback.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
+        <state relative-caret-position="1020">
+          <caret line="71" column="37" selection-start-line="71" selection-start-column="37" selection-end-line="71" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logging/logging.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2970">
+          <caret line="204" selection-start-line="204" selection-end-line="204" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/breaks.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="45" column="1" selection-start-line="45" selection-start-column="1" selection-end-line="45" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/trafficData.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="930">
+          <caret line="65" lean-forward="true" selection-start-line="65" selection-end-line="65" />
           <folding>
-            <element signature="e#16#52#0" expanded="true" />
+            <element signature="e#16#78#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/stream.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/Banning.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="118" column="14" selection-start-line="118" selection-start-column="14" selection-end-line="118" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/Collector.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="23" column="45" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/TrafficData.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="29" column="1" selection-start-line="14" selection-end-line="29" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/trafficFilling.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="76" column="24" lean-forward="true" selection-start-line="24" selection-end-line="76" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/clicks.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/addClickAffiliate.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+          <folding>
+            <element signature="e#21#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
